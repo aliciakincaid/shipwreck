@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>CleaningCoordinateData</title>
+<title>Auto-Categorize Ship Images</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -16372,557 +16372,33 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Overview-of-this-Project">Overview of this Project<a class="anchor-link" href="#Overview-of-this-Project">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Okay, so we're going to write a script that takes a string of coordinate data and removes special characters (i.e. those that aren't '.', '-', or 0-9</p>
-<p>There is also an instance where two coordinate points were put in the same cell to indicate uncertainty about the location... this will need to be addressed as well; if we just delete the special characters separating the two we will have nonsense</p>
-<p>There are also coordinates that are NOT in decimal format which need to be converted</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Code-Segment-One">Code Segment One<a class="anchor-link" href="#Code-Segment-One">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this block of code, we are trying to read in a column from our spreadsheet and turn it into a list</p>
-<p>The below would work for an excel document, however, since we are working in a linux environment we only have access to ods files. I am keeping the excel compatible code for reference</p>
-
+<h1 id="Auto-Categorize-Ship-Data">Auto-Categorize Ship Data<a class="anchor-link" href="#Auto-Categorize-Ship-Data">&#182;</a></h1>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#import pandas as pd</span>
-
-<span class="c1">#latitude = pd.read_excel(&#39;EarlyModernShapeFile.ods&#39;, sheet_name=0)</span>
-<span class="c1">#latlist = latitude[&#39;Latitude&#39;].tolist()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">listdir</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+<span class="kn">from</span> <span class="nn">string</span> <span class="k">import</span> <span class="n">digits</span>
 </pre></div>
 
     </div>
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Take two! This time we saved the spreadsheet in csv format so it can be read :)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;EarlyModernPreClean.csv&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Just typing in the name df (stands for data frame) will print out all points... Typing the name with the function head will show the first five elements</p>
-<p>This allows us to verify our spreadsheet data was ported over properly</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[3]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Site</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boccalama B</td>
-      <td>45.388939</td>
-      <td>12.280872</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Boccalama A</td>
-      <td>45.388639</td>
-      <td>12.280894</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Contarina 1</td>
-      <td>45.024497</td>
-      <td>12.217022</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Culip VI</td>
-      <td>42.321567</td>
-      <td>3.310431</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Les Sorres X</td>
-      <td>41.277389</td>
-      <td>1.993044</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This takes our rows for latitude and longitude and turns them into a list of strings. Now we can start accessing the characters</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">latList</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-<span class="n">longList</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-
-<span class="n">siteList</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Site&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Code-Segment-Two">Code Segment Two<a class="anchor-link" href="#Code-Segment-Two">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, we need to look at the list of strings and remove the special characters... I think in the event there is more than one potential coordinate listed, we can't assume the characters separating the two will be the same for every instance so it will be best to remove them and then check if there are any numbers separated by spaces at the end</p>
-<p>OKAY, there are some instances where the coordinates are NOT in decimal format so we've got to figure out how to work with that -_-</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Changing-to-Decimal-Format">Changing to Decimal Format<a class="anchor-link" href="#Changing-to-Decimal-Format">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Alright, we're going to need to be able to isolate the coordinate in the incorrect data format, hold it's position in the spreadsheet, alter it, then place it back in position</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">latToConvert</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">longToConvert</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">latCounter</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">longCounter</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">latitude</span> <span class="ow">in</span> <span class="n">latList</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">latitude</span> <span class="ow">or</span> <span class="s2">&quot;S&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="n">latToConvert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span>
-        <span class="n">latCounter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">longitude</span> <span class="ow">in</span> <span class="n">longList</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;E&quot;</span> <span class="ow">in</span> <span class="n">longitude</span> <span class="ow">or</span> <span class="s2">&quot;W&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="n">longToConvert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span>
-        <span class="n">longCounter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">latToConvert</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">latCounter</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">longToConvert</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">longCounter</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39; 38°31\&#39;23.84&#34;N&#39;, &#39; 21° 8\&#39;47.06&#34;N&#39;]
-[176, 379]
-[&#39; 28°38\&#39;6.89&#34;W&#39;, &#39; 75°49\&#39;23.25&#34;W&#39;]
-[176, 379]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Alright! Now we've got our list of coordinates in the wrong data format... now all we need to do is convert</p>
-<p>In this experiment list, some of the characters separating the degrees/minutes/seconds are incorrect.. so I think it'll be best to replace special characters with spaces, change all mutlispaces to one space, and do the calculations based on that :)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
-
-<span class="n">convertedLat</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">convertedLong</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">def</span> <span class="nf">converter</span><span class="p">(</span><span class="n">coordinate</span><span class="p">):</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^0-9.-]+&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="k">pass</span>
-    <span class="nb">input</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">input</span>
-
-<span class="k">for</span> <span class="n">latitude</span> <span class="ow">in</span> <span class="n">latToConvert</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">latitude</span><span class="p">)</span>
-        <span class="n">convertedLat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;S&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">latitude</span><span class="p">)</span>
-        <span class="n">convertedLat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">convertedLat</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">longitude</span> <span class="ow">in</span> <span class="n">longToConvert</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;E&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">longitude</span><span class="p">)</span>
-        <span class="n">convertedLong</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;W&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">longitude</span><span class="p">)</span>
-        <span class="n">convertedLong</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">convertedLong</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[38.523288888888885, 21.146405555555557]
-[-28.635247222222223, -75.82312499999999]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that we habve the converted coordinate points it is time to use them to replace the main list...</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">latCounter</span><span class="p">:</span>
-    <span class="n">latList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLat</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">longCounter</span><span class="p">:</span>
-    <span class="n">longList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLong</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Deleting-extra-characters">Deleting extra characters<a class="anchor-link" href="#Deleting-extra-characters">&#182;</a></h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleanLatList</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">cleanLongList</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">latitude</span> <span class="ow">in</span> <span class="n">latList</span><span class="p">:</span>
-    <span class="n">cleanLatList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^0-9.-]+&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">latitude</span><span class="p">))</span>
-    
-<span class="k">for</span> <span class="n">longitude</span> <span class="ow">in</span> <span class="n">longList</span><span class="p">:</span>
-    <span class="n">cleanLongList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^0-9.-]+&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">longitude</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The print statements below verify our converted coordinates are in the master list</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cleanLongList</span><span class="p">[</span><span class="mi">176</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cleanLongList</span><span class="p">[</span><span class="mi">379</span><span class="p">])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">cleanLatList</span><span class="p">[</span><span class="mi">176</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cleanLatList</span><span class="p">[</span><span class="mi">379</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-28.635247222222223
--75.82312499999999
-38.523288888888885
-21.146405555555557
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Okey-dokey,-I-was-hoping-we-could-just-look-at-the-data-point-with">Okey-dokey, I was hoping we could just look at the data point with<a class="anchor-link" href="#Okey-dokey,-I-was-hoping-we-could-just-look-at-the-data-point-with">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">cleanLongList</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot; &quot;</span> <span class="ow">in</span> <span class="n">point</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>18.416667 18.373354
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Code-Segment-Three">Code Segment Three<a class="anchor-link" href="#Code-Segment-Three">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Alright, here we are going to make a brand new csv file with all our data points ready to be uploaded into a map :)</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;EarlyModernPostClean.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
-    <span class="n">filewriter</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span><span class="n">quotechar</span><span class="o">=</span><span class="s1">&#39;|&#39;</span><span class="p">,</span> <span class="n">quoting</span><span class="o">=</span><span class="n">csv</span><span class="o">.</span><span class="n">QUOTE_MINIMAL</span><span class="p">)</span>
-    <span class="n">filewriter</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="s1">&#39;Site&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span>
-    <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">siteList</span><span class="p">:</span>
-        <span class="n">filewriter</span><span class="o">.</span><span class="n">writerow</span><span class="p">([</span><span class="n">siteList</span><span class="p">[</span><span class="n">counter</span><span class="p">],</span> <span class="n">cleanLatList</span><span class="p">[</span><span class="n">counter</span><span class="p">],</span> <span class="n">cleanLongList</span><span class="p">[</span><span class="n">counter</span><span class="p">]])</span>
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;EarlyModernPostClean.csv&#39;</span><span class="p">)</span>
-
-<span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -16938,54 +16414,8 @@ div#notebook {
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ParserError</span>                               Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-13-48c6d7a33695&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>df2 <span class="ansi-blue-fg">=</span> pd<span class="ansi-blue-fg">.</span>read_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;EarlyModernPostClean.csv&#39;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> 
-<span class="ansi-green-intense-fg ansi-bold">      3</span> df2<span class="ansi-blue-fg">.</span>head<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">parser_f</span><span class="ansi-blue-fg">(filepath_or_buffer, sep, delimiter, header, names, index_col, usecols, squeeze, prefix, mangle_dupe_cols, dtype, engine, converters, true_values, false_values, skipinitialspace, skiprows, skipfooter, nrows, na_values, keep_default_na, na_filter, verbose, skip_blank_lines, parse_dates, infer_datetime_format, keep_date_col, date_parser, dayfirst, iterator, chunksize, compression, thousands, decimal, lineterminator, quotechar, quoting, doublequote, escapechar, comment, encoding, dialect, tupleize_cols, error_bad_lines, warn_bad_lines, delim_whitespace, low_memory, memory_map, float_precision)</span>
-<span class="ansi-green-intense-fg ansi-bold">    700</span>                     skip_blank_lines=skip_blank_lines)
-<span class="ansi-green-intense-fg ansi-bold">    701</span> 
-<span class="ansi-green-fg">--&gt; 702</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> _read<span class="ansi-blue-fg">(</span>filepath_or_buffer<span class="ansi-blue-fg">,</span> kwds<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    703</span> 
-<span class="ansi-green-intense-fg ansi-bold">    704</span>     parser_f<span class="ansi-blue-fg">.</span>__name__ <span class="ansi-blue-fg">=</span> name
-
-<span class="ansi-green-fg">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">_read</span><span class="ansi-blue-fg">(filepath_or_buffer, kwds)</span>
-<span class="ansi-green-intense-fg ansi-bold">    433</span> 
-<span class="ansi-green-intense-fg ansi-bold">    434</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 435</span><span class="ansi-red-fg">         </span>data <span class="ansi-blue-fg">=</span> parser<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>nrows<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    436</span>     <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    437</span>         parser<span class="ansi-blue-fg">.</span>close<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(self, nrows)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1137</span>     <span class="ansi-green-fg">def</span> read<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> nrows<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1138</span>         nrows <span class="ansi-blue-fg">=</span> _validate_integer<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;nrows&#39;</span><span class="ansi-blue-fg">,</span> nrows<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 1139</span><span class="ansi-red-fg">         </span>ret <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_engine<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>nrows<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1140</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1141</span>         <span class="ansi-red-fg"># May alter columns / col_dict</span>
-
-<span class="ansi-green-fg">~/anaconda3/lib/python3.7/site-packages/pandas/io/parsers.py</span> in <span class="ansi-cyan-fg">read</span><span class="ansi-blue-fg">(self, nrows)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1993</span>     <span class="ansi-green-fg">def</span> read<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> nrows<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1994</span>         <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1995</span><span class="ansi-red-fg">             </span>data <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>_reader<span class="ansi-blue-fg">.</span>read<span class="ansi-blue-fg">(</span>nrows<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1996</span>         <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1997</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>_first_chunk<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader.read</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._read_low_memory</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._read_rows</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.TextReader._tokenize_rows</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-green-fg">pandas/_libs/parsers.pyx</span> in <span class="ansi-cyan-fg">pandas._libs.parsers.raise_parser_error</span><span class="ansi-blue-fg">()</span>
-
-<span class="ansi-red-fg">ParserError</span>: Error tokenizing data. C error: Expected 3 fields in line 336, saw 4
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>/Users/ali.ivy.kincaid/Desktop
 </pre>
 </div>
 </div>
@@ -16996,10 +16426,175 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/Users/ali.ivy.kincaid/Desktop&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Print filenames of all the images</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;Ship_Data&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">filenames</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filenames</span> <span class="o">!=</span> <span class="s2">&quot;.DS_Store&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Define each image's parent folder</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cleaned_file_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">parent_folder_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">whole_filepath</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;Ship_Data&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s2">&quot;.DS_Store&quot;</span><span class="p">:</span>
+            <span class="n">cleaned_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="n">whole_filepath</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">parent_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">:]</span>
+            <span class="n">parent_folder</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; / &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent_folder</span><span class="p">)</span>
+            <span class="n">parent_folder_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_folder</span><span class="p">)</span>
+            
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">parent_folder_names</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Define artist name for each image</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">extensions</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">cleaned_file_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">parent_folder_names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">whole_filepath</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">artists</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s2">&quot;Ship_Data&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="o">!=</span> <span class="s2">&quot;.DS_Store&quot;</span><span class="p">:</span>
+            <span class="n">cleaned_file_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+            <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="n">whole_filepath</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+            <span class="n">parent_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">6</span><span class="p">:]</span>
+            <span class="n">parent_folder</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; / &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parent_folder</span><span class="p">)</span>
+            <span class="n">parent_folder_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_folder</span><span class="p">)</span>
+            <span class="n">remove_digits</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">digits</span><span class="p">)</span>
+            <span class="n">artist</span> <span class="o">=</span> <span class="n">parent_folder</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">remove_digits</span><span class="p">)</span>
+            <span class="n">artist</span> <span class="o">=</span> <span class="n">artist</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+            <span class="n">no</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;c.&#39;</span><span class="p">,</span> <span class="s1">&#39;images&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;without&#39;</span><span class="p">,</span> <span class="s1">&#39;painting&#39;</span><span class="p">,</span> <span class="s1">&#39;azulujos&#39;</span><span class="p">,</span> <span class="s1">&#39;tecto&#39;</span><span class="p">,</span> <span class="s1">&#39;kh-&#39;</span><span class="p">,</span> <span class="s1">&#39;sala&#39;</span><span class="p">,</span> <span class="s1">&#39;es-s&#39;</span><span class="p">,</span> <span class="s1">&#39;das&#39;</span><span class="p">,</span> <span class="s1">&#39;batalhas&#39;</span><span class="p">,</span> <span class="s1">&#39;saco&#39;</span><span class="p">,</span> <span class="s1">&#39;quadros&#39;</span><span class="p">,</span> <span class="s1">&#39;por&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;museu&#39;</span><span class="p">,</span> <span class="s1">&#39;da&#39;</span><span class="p">,</span> <span class="s1">&#39;cidade&#39;</span><span class="p">,</span> <span class="s1">&#39;ships&#39;</span><span class="p">,</span> <span class="s1">&#39;paintings&#39;</span><span class="p">,</span> <span class="s1">&#39;la&#39;</span><span class="p">,</span> <span class="s1">&#39;batalla&#39;</span><span class="p">,</span> <span class="s1">&#39;las&#39;</span><span class="p">,</span> <span class="s1">&#39;dunos&#39;</span><span class="p">,</span> <span class="s1">&#39;nioporte&#39;</span><span class="p">,</span> <span class="s1">&#39;facsimile&#39;</span><span class="p">,</span> <span class="s1">&#39;fichas&#39;</span><span class="p">,</span> <span class="s1">&#39;publication&#39;</span><span class="p">,</span> <span class="s1">&#39;es-&#39;</span><span class="p">,</span><span class="s1">&#39;es--&#39;</span><span class="p">,</span> <span class="s1">&#39;es&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;de&#39;</span><span class="p">,</span> <span class="s1">&#39;de-&#39;</span><span class="p">,</span> <span class="s1">&#39;de--&#39;</span><span class="p">,</span> <span class="s1">&#39;fr&#39;</span><span class="p">,</span> <span class="s1">&#39;fr-&#39;</span><span class="p">,</span> <span class="s1">&#39;fr--&#39;</span><span class="p">,</span> <span class="s1">&#39;pt&#39;</span><span class="p">,</span> <span class="s1">&#39;pt-&#39;</span><span class="p">,</span> <span class="s1">&#39;pt--&#39;</span><span class="p">,</span> <span class="s1">&#39;hr&#39;</span><span class="p">,</span> <span class="s1">&#39;hr-&#39;</span><span class="p">,</span> <span class="s1">&#39;hr--&#39;</span><span class="p">,</span> <span class="s1">&#39;it&#39;</span><span class="p">,</span> <span class="s1">&#39;it-&#39;</span><span class="p">,</span> <span class="s1">&#39;it--&#39;</span><span class="p">,</span> <span class="s1">&#39;nl&#39;</span><span class="p">,</span> <span class="s1">&#39;nl-&#39;</span><span class="p">,</span> <span class="s1">&#39;nl--&#39;</span><span class="p">,</span> <span class="s1">&#39;be&#39;</span><span class="p">,</span> <span class="s1">&#39;be-&#39;</span><span class="p">,</span> <span class="s1">&#39;be--&#39;</span><span class="p">,</span> <span class="s1">&#39;dn&#39;</span><span class="p">,</span> <span class="s1">&#39;dn-&#39;</span><span class="p">,</span> <span class="s1">&#39;dn--&#39;</span><span class="p">,</span> <span class="s1">&#39;jp&#39;</span><span class="p">,</span> <span class="s1">&#39;jp-&#39;</span><span class="p">,</span> <span class="s1">&#39;jp--&#39;</span><span class="p">]</span>
+             
+            <span class="n">removed</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">artist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">each</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">no</span><span class="p">:</span>
+                    <span class="n">removed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+                    
+            <span class="n">removed</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;harbor views _ shipyards braun and hogenberg incomplete&quot;</span><span class="p">,</span><span class="s2">&quot;braun and hogenberg&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;pintoricchio penelope and trhe suitors&quot;</span><span class="p">,</span><span class="s2">&quot;pintoricchio penelope&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;harbor views _ shipyards&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;oliveira _ars nautica_&quot;</span><span class="p">,</span><span class="s2">&quot;oliveira&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;braun and hogenberg to finish and organize&quot;</span><span class="p">,</span><span class="s2">&quot;braun and hogenberg&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;bartolommeo dalli sonetti_s isolario&quot;</span><span class="p">,</span><span class="s2">&quot;bartolommeo dalli sonetti&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;ex-votos naples&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;oliveira _livro fabrica naus_&quot;</span><span class="p">,</span><span class="s2">&quot;oliveira&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;biombos namban southern_barbarian&quot;</span><span class="p">,</span><span class="s2">&quot;biombos namban&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;the legend of the hermit anthony&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;unkown shipyards&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;shipyards&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;replica model&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;galeon museo naval&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;atlas catalan abraham cresques&quot;</span><span class="p">,</span> <span class="s2">&quot;abraham cresques&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;simao miranda view of lisbon&quot;</span><span class="p">,</span><span class="s2">&quot;simao miranda&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;album colbert&quot;</span><span class="p">,</span><span class="s2">&quot;colbert&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;victoria and a museum&quot;</span><span class="p">,</span><span class="s2">&quot;victoria and albert&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;lubeck seal&quot;</span><span class="p">,</span><span class="s2">&quot;lubeck&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;galeon museo naval&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;saint-aubin neuville church&quot;</span><span class="p">,</span><span class="s2">&quot;saint-aubin neuville&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;tower of pisa&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;melchior lorke view of istanbul&quot;</span><span class="p">,</span><span class="s2">&quot;melchior lorke&quot;</span><span class="p">)</span>
+            <span class="n">removed</span> <span class="o">=</span> <span class="n">removed</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;memoria armadas&quot;</span><span class="p">,</span><span class="s2">&quot;unknown&quot;</span><span class="p">)</span>
+            
+            <span class="n">artists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">removed</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">artists</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Look at artist names to isolate unnecessary characters</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">artist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">each</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">no</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">each</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">artists</span><span class="p">:</span>
+            <span class="n">artists</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
+            <span class="n">test2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">artists</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">test2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">each</span><span class="p">)</span>
 </pre></div>
 
     </div>
