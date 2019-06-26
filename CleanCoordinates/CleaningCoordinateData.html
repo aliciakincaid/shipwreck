@@ -16433,7 +16433,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">is_legit_latitude</span><span class="p">(</span><span class="n">latitude</span><span class="p">):</span>
@@ -16463,7 +16463,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#for optional inputs, set equal to none</span>
@@ -16483,7 +16483,11 @@ div#notebook {
     
     <span class="nb">print</span><span class="p">(</span><span class="n">merged_list</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">merged_list</span>
-    
+
+<span class="k">def</span> <span class="nf">extend_columns</span><span class="p">(</span><span class="n">actual_column</span><span class="p">,</span> <span class="n">desired_length</span><span class="p">):</span>
+    <span class="n">actual_column</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot; &quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">desired_length</span><span class="p">)</span>
+    <span class="n">actual_column</span> <span class="o">=</span> <span class="n">actual_column</span><span class="p">[:</span><span class="n">desired_length</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">actual_column</span>
         
 <span class="k">def</span> <span class="nf">extract_from_csv</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude_column1</span><span class="p">,</span> <span class="n">longitude_column1</span><span class="p">,</span> <span class="n">latitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">longitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="n">site_column_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">site_column</span><span class="p">)</span>
@@ -16497,7 +16501,7 @@ div#notebook {
         <span class="n">latitude2_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">latitude2_list</span><span class="p">)</span>
         
         <span class="k">if</span> <span class="n">latitude1_length</span> <span class="o">&lt;</span> <span class="n">site_column_length</span><span class="p">:</span>
-        <span class="c1">#we need to extend this list    </span>
+            
         
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">merge_two_columns</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude1_list</span><span class="p">,</span> <span class="n">latitude2_list</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -16535,7 +16539,7 @@ div#notebook {
 
 <div class="output_subarea output_text output_error">
 <pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-2-d939cab78546&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">34</span>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-3-d939cab78546&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">34</span>
 <span class="ansi-red-fg">    latitude_list = merge_two_columns(site_column, latitude1_list, latitude2_list)</span>
                 ^
 <span class="ansi-red-fg">IndentationError</span><span class="ansi-red-fg">:</span> expected an indented block
@@ -16549,7 +16553,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;OldMediterranean.csv&#39;</span><span class="p">)</span>
@@ -16562,54 +16566,10 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39; 36° 7\&#39;51.15&#34;N&#39;, &#39; 36°12\&#39;24.72&#34;N&#39;, &#39; 45°28\&#39;21.26&#34;N&#39;, &#39;37°33\&#39;33.7&#34;N\xa0&#39;, &#39;37°33\&#39;34.3&#34;N\xa0&#39;, &#39;42°22\&#39;05.9&#34;N &#39;, &#39;36.976556&#39;, &#39; 39°55\&#39;19.18&#34;N&#39;, &#39;43°10\&#39;03.2&#34;N &#39;]
-[&#39; 29°40\&#39;58.54&#34;E&#39;, &#39; 30°24\&#39;15.38&#34;E&#39;, &#39; 13°30\&#39;36.35&#34;E&#39;, &#39;1°16\&#39;09.6&#34;W&#39;, &#39;1°16\&#39;04.7&#34;W&#39;, &#39;10°52\&#39;37.5&#34;E&#39;, &#39;27.562942&#39;, &#39;  3° 3\&#39;27.56&#34;E&#39;, &#39;6°38\&#39;49.2&#34;E&#39;]
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-6-d16fd8f94370&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> site_list <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Site&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>tolist<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>latitude_list <span class="ansi-blue-fg">=</span> extract_from_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;site_list&#39;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Latitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Latitude2&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude2&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-2-a3604082f56c&gt;</span> in <span class="ansi-cyan-fg">extract_from_csv</span><span class="ansi-blue-fg">(site_column, latitude_column1, longitude_column1, latitude_column2, longitude_column2)</span>
-<span class="ansi-green-intense-fg ansi-bold">     38</span> 
-<span class="ansi-green-intense-fg ansi-bold">     39</span>     <span class="ansi-green-fg">for</span> site <span class="ansi-green-fg">in</span> site_list<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 40</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">if</span> latitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">and</span> longitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     41</span>             position_of_valid_coordinates<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>position_counter<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     42</span>         position_counter <span class="ansi-blue-fg">+=</span> <span class="ansi-cyan-fg">1</span>
-
-<span class="ansi-red-fg">IndexError</span>: list index out of range</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span> 
@@ -16674,7 +16634,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">latToConvert</span> <span class="o">=</span> <span class="p">[]</span>
@@ -16705,7 +16665,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">latToConvert</span><span class="p">)</span>
@@ -16716,27 +16676,6 @@ div#notebook {
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[&#39; 38°31\&#39;23.84&#34;N&#39;, &#39; 21° 8\&#39;47.06&#34;N&#39;]
-[176, 379]
-[&#39; 28°38\&#39;6.89&#34;W&#39;, &#39; 75°49\&#39;23.25&#34;W&#39;]
-[176, 379]
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -16752,7 +16691,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">convertedLat</span> <span class="o">=</span> <span class="p">[]</span>
@@ -16792,25 +16731,6 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[38.523288888888885, 21.146405555555557]
-[-28.635247222222223, -75.82312499999999]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -16822,7 +16742,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
@@ -16850,7 +16770,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleanLatList</span> <span class="o">=</span> <span class="p">[]</span>
@@ -16882,7 +16802,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cleanLongList</span><span class="p">[</span><span class="mi">176</span><span class="p">])</span>
@@ -16900,30 +16820,6 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>-28.635247222222223
--75.82312499999999
-38.523288888888885
-21.146405555555557
-Nossa Senhora da Luz
-Guardalavaca
-Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -16934,7 +16830,7 @@ Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">cleanLongList</span><span class="p">:</span>
@@ -16943,24 +16839,6 @@ Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>18.416667 18.373354
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
@@ -16982,7 +16860,7 @@ Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
@@ -17004,7 +16882,7 @@ Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;EarlyModernPostClean.csv&#39;</span><span class="p">)</span>
@@ -17013,81 +16891,6 @@ Nuestra Senora del Carmen / Santo Antonio de Padua y las Animas
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[13]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Site</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Boccalama B</td>
-      <td>45.388939</td>
-      <td>12.280872</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Boccalama A</td>
-      <td>45.388639</td>
-      <td>12.280894</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Contarina 1</td>
-      <td>45.024497</td>
-      <td>12.217022</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Culip VI</td>
-      <td>42.321567</td>
-      <td>3.310431</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>Les Sorres X</td>
-      <td>41.277389</td>
-      <td>1.993044</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
 </div>
 </div>
 
