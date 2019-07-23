@@ -16404,7 +16404,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -16440,11 +16440,10 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#See if the coordinates fall within the acceptable range</span>
-
 <span class="k">def</span> <span class="nf">is_legit_latitude</span><span class="p">(</span><span class="n">latitude</span><span class="p">):</span>
     <span class="k">if</span> <span class="o">-</span><span class="mi">90</span> <span class="o">&lt;=</span> <span class="n">latitude</span> <span class="o">&lt;=</span> <span class="mi">90</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">true</span>
@@ -16476,7 +16475,7 @@ div#notebook {
 
 <span class="c1">#Increases the length of a coordinate list in the event the list of names is longer</span>
 <span class="k">def</span> <span class="nf">extend_columns</span><span class="p">(</span><span class="n">original_column</span><span class="p">,</span> <span class="n">desired_length</span><span class="p">):</span>
-    <span class="n">original_column</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>\<span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">] * desired_length)</span>
+    <span class="n">original_column</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot; &quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">desired_length</span><span class="p">)</span>
     <span class="n">extended_column</span> <span class="o">=</span> <span class="n">original_column</span><span class="p">[:</span><span class="n">desired_length</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">extended_column</span>
 
@@ -16505,41 +16504,17 @@ div#notebook {
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-2-7ff789ce4ada&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">36</span>
-<span class="ansi-red-fg">    original_column.extend([\&#34; \&#34;] * desired_length)</span>
-                                                    ^
-<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> unexpected character after line continuation character
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Okay, thought I was going to be able to do this a certain way, but there are too many variations in column name. SO, the "main" area will open the file.. then the extract function will take in the file and a desired column name... In C++ there is a way to have a function take in x amount of elements for sure, and then a couple others maybe. Will have to see if this is the case for circumstances where there are multiple longitude and latitude columns</p>
-<p>We also can't check if these coordinates are valid yet... we should just look for empties and then go from there :/</p>
-
+<h2 id="Defining-Main-Function">Defining Main Function<a class="anchor-link" href="#Defining-Main-Function">&#182;</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#for optional inputs, set equal to none</span>
@@ -16547,16 +16522,16 @@ div#notebook {
     <span class="c1">#This acts as a basis for how long our coordinate lists should be</span>
     <span class="n">site_column_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">site_column</span><span class="p">)</span>
     
-    <span class="c1">#If there is a second column for latitude data, we will need to combine them</span>
-    <span class="c1">#before turning it into our final list</span>
+    
+    <span class="c1">#If there is a second column for latitude data, we will need to combine them before turning it into our final list</span>
     <span class="k">if</span> <span class="n">latitude_column2</span><span class="p">:</span>
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">preamble_to_merging</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">,</span> <span class="n">latitude_column1</span><span class="p">,</span> <span class="n">latitude_column2</span><span class="p">)</span>
     <span class="c1">#If there is only one column of latitude data, we will immediately create a list</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     
-    <span class="k">if</span> <span class="n">longitude_column2</span><span class="p">:</span>
-        <span class="c1">#   </span>
+    <span class="c1">#If there is a second column for latitude data, we will need to combine them before turning it into our final list</span>
+    <span class="k">if</span> <span class="n">longitude_column2</span><span class="p">:</span> 
         <span class="n">longitude_list</span> <span class="o">=</span> <span class="n">preamble_to_merging</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">,</span> <span class="n">longitude_column1</span><span class="p">,</span> <span class="n">longitude_column2</span><span class="p">)</span>
     <span class="c1">#If there is only one column of longitude data, we will immediately create a list</span>
     <span class="k">else</span><span class="p">:</span>
@@ -16581,7 +16556,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;OldMediterranean.csv&#39;</span><span class="p">)</span>
@@ -16591,6 +16566,50 @@ div#notebook {
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39; 36° 7\&#39;51.15&#34;N&#39;, &#39; 36°12\&#39;24.72&#34;N&#39;, &#39; 45°28\&#39;21.26&#34;N&#39;, &#39;37°33\&#39;33.7&#34;N\xa0&#39;, &#39;37°33\&#39;34.3&#34;N\xa0&#39;, &#39;42°22\&#39;05.9&#34;N &#39;, &#39;36.976556&#39;, &#39; 39°55\&#39;19.18&#34;N&#39;, &#39;43°10\&#39;03.2&#34;N &#39;]
+[&#39; 29°40\&#39;58.54&#34;E&#39;, &#39; 30°24\&#39;15.38&#34;E&#39;, &#39; 13°30\&#39;36.35&#34;E&#39;, &#39;1°16\&#39;09.6&#34;W&#39;, &#39;1°16\&#39;04.7&#34;W&#39;, &#39;10°52\&#39;37.5&#34;E&#39;, &#39;27.562942&#39;, &#39;  3° 3\&#39;27.56&#34;E&#39;, &#39;6°38\&#39;49.2&#34;E&#39;]
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-7-d16fd8f94370&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> site_list <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Site&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>tolist<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>latitude_list <span class="ansi-blue-fg">=</span> extract_from_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;site_list&#39;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Latitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Latitude2&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude2&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">&lt;ipython-input-6-f4d06d156850&gt;</span> in <span class="ansi-cyan-fg">extract_from_csv</span><span class="ansi-blue-fg">(site_column, latitude_column1, longitude_column1, latitude_column2, longitude_column2)</span>
+<span class="ansi-green-intense-fg ansi-bold">     25</span> 
+<span class="ansi-green-intense-fg ansi-bold">     26</span>     <span class="ansi-green-fg">for</span> site <span class="ansi-green-fg">in</span> site_list<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 27</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">if</span> latitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">and</span> longitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     28</span>             position_of_valid_coordinates<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>position_counter<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     29</span>         position_counter <span class="ansi-blue-fg">+=</span> <span class="ansi-cyan-fg">1</span>
+
+<span class="ansi-red-fg">IndexError</span>: list index out of range</pre>
+</div>
+</div>
+
 </div>
 </div>
 
