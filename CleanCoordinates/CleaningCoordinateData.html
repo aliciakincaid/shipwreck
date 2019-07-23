@@ -16434,7 +16434,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Defining-Functions">Defining Functions<a class="anchor-link" href="#Defining-Functions">&#182;</a></h2>
+<h2 id="Defining-Helper-Functions">Defining Helper Functions<a class="anchor-link" href="#Defining-Helper-Functions">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -16477,9 +16477,35 @@ div#notebook {
 
 
 <span class="c1">#Increases the length of a coordinate list in the event the list of names is longer</span>
+<span class="k">def</span> <span class="nf">extend_columns</span><span class="p">(</span><span class="n">original_column</span><span class="p">,</span> <span class="n">desired_length</span><span class="p">):</span>
+    <span class="n">original_column</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>\<span class="s2">&quot; </span><span class="se">\&quot;</span><span class="s2">] * desired_length)</span>
+    <span class="n">extended_column</span> <span class="o">=</span> <span class="n">original_column</span><span class="p">[:</span><span class="n">desired_length</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">extended_column</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-2-7ff789ce4ada&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">36</span>
+<span class="ansi-red-fg">    original_column.extend([\&#34; \&#34;] * desired_length)</span>
+                                                    ^
+<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> unexpected character after line continuation character
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -16499,34 +16525,63 @@ div#notebook {
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">extract_from_csv</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude_column1</span><span class="p">,</span> <span class="n">longitude_column1</span><span class="p">,</span> <span class="n">latitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">longitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="c1">#This acts as a basis for how long our coordinate lists should be</span>
     <span class="n">site_column_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">site_column</span><span class="p">)</span>
     
     <span class="c1">#If there is a second column for latitude data, we will need to combine them</span>
     <span class="c1">#before turning it into our final list</span>
     <span class="k">if</span> <span class="n">latitude_column2</span><span class="p">:</span>
+        <span class="c1">#create lists for the two different columns</span>
         <span class="n">latitude1_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">latitude2_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         
+        <span class="c1">#determine the length of each list... </span>
         <span class="n">latitude1_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">latitude1_list</span><span class="p">)</span>
         <span class="n">latitude2_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">latitude2_list</span><span class="p">)</span>
         
+        <span class="c1">#If one/both the lists are shorter than the list of site names,</span>
+        <span class="c1">#we will need to extend them to comply with formatting </span>
         <span class="k">if</span> <span class="n">latitude1_length</span> <span class="o">&lt;</span> <span class="n">site_column_length</span><span class="p">:</span>
-            
+            <span class="n">latitude1_list</span> <span class="o">=</span> <span class="n">extend_columns</span><span class="p">(</span><span class="n">latitude1_list</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">latitude2_length</span> <span class="o">&lt;</span> <span class="n">site_column_length</span><span class="p">:</span>
+            <span class="n">latitude2_list</span> <span class="o">=</span> <span class="n">extend_columns</span><span class="p">(</span><span class="n">latitude2_list</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">)</span>
         
+        <span class="c1">#with the two lists the same size, we will merge them together</span>
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">merge_two_columns</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude1_list</span><span class="p">,</span> <span class="n">latitude2_list</span><span class="p">)</span>
     <span class="c1">#If there is only one column of latitude data, we will immediately create a list</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     
+    
+    <span class="c1">#If there is a second column for longitude data, we will need to combine them</span>
+    <span class="c1">#before turning it into our final list</span>
     <span class="k">if</span> <span class="n">longitude_column2</span><span class="p">:</span>
+        <span class="c1">#create lists for the two different columns</span>
         <span class="n">longitude1_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">longitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">longitude2_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">longitude_column2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="n">longitude_list</span> <span class="o">=</span> <span class="n">merge_two_columns</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">longitude1_list</span><span class="p">,</span> <span class="n">longitude2_list</span><span class="p">)</span>
+        
+         <span class="c1">#determine the length of each list... </span>
+        <span class="n">latitude1_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">longitude1_list</span><span class="p">)</span>
+        <span class="n">latitude2_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">longitude2_list</span><span class="p">)</span>
+        
+        <span class="c1">#If one/both the lists are shorter than the list of site names,</span>
+        <span class="c1">#we will need to extend them to comply with formatting</span>
+        <span class="k">if</span> <span class="n">longitude1_list</span> <span class="o">&lt;</span> <span class="n">site_column_length</span><span class="p">:</span>
+            <span class="n">longitude1_list</span> <span class="o">=</span> <span class="n">extend_columns</span><span class="p">(</span><span class="n">longitude1_list</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">latitude2_length</span> <span class="o">&lt;</span> <span class="n">site_column_length</span><span class="p">:</span>
+            <span class="n">longitude2_list</span> <span class="o">=</span> <span class="n">extend_columns</span><span class="p">(</span><span class="n">longitude2_list</span><span class="p">,</span> <span class="n">site_column_length</span><span class="p">)</span>
+        
+        <span class="c1">#with the two lists the same size, we will merge them together</span>
+        <span class="n">longitude_list</span> <span class="o">=</span> <span class="n">merge_two_columns</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">longitude1_list</span><span class="p">,</span> <span class="n">longitude2_list</span><span class="p">)</span>    
+    
+    <span class="c1">#If there is only one column of longitude data, we will immediately create a list</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">longitude_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">longitude_column2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     
+    
     <span class="n">position_of_valid_coordinates</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">position_counter</span> <span class="o">=</span> <span class="mi">0</span>
+    
     
     <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">site_list</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">latitude_list</span><span class="p">[</span><span class="n">position_counter</span><span class="p">]</span> <span class="ow">and</span> <span class="n">longitude_list</span><span class="p">[</span><span class="n">position_counter</span><span class="p">]:</span>
@@ -16536,28 +16591,6 @@ div#notebook {
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-3-d939cab78546&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">34</span>
-<span class="ansi-red-fg">    latitude_list = merge_two_columns(site_column, latitude1_list, latitude2_list)</span>
-                ^
-<span class="ansi-red-fg">IndentationError</span><span class="ansi-red-fg">:</span> expected an indented block
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 
