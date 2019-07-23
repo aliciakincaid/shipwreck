@@ -16498,11 +16498,11 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span>        
-<span class="k">def</span> <span class="nf">extract_from_csv</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude_column1</span><span class="p">,</span> <span class="n">longitude_column1</span><span class="p">,</span> <span class="n">latitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">longitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">extract_from_csv</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude_column1</span><span class="p">,</span> <span class="n">longitude_column1</span><span class="p">,</span> <span class="n">latitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">longitude_column2</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="n">site_column_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">site_column</span><span class="p">)</span>
-    <span class="n">longitude1_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">longitude1_list</span><span class="p">)</span>
     
+    <span class="c1">#If there is a second column for latitude data, we will need to combine them</span>
+    <span class="c1">#before turning it into our final list</span>
     <span class="k">if</span> <span class="n">latitude_column2</span><span class="p">:</span>
         <span class="n">latitude1_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
         <span class="n">latitude2_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
@@ -16514,6 +16514,7 @@ div#notebook {
             
         
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">merge_two_columns</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">latitude1_list</span><span class="p">,</span> <span class="n">latitude2_list</span><span class="p">)</span>
+    <span class="c1">#If there is only one column of latitude data, we will immediately create a list</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">latitude_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">latitude_column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     
