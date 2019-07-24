@@ -16404,11 +16404,12 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">math</span>
 </pre></div>
 
     </div>
@@ -16440,7 +16441,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[73]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#See if the coordinates fall within the acceptable range</span>
@@ -16462,14 +16463,17 @@ div#notebook {
     <span class="n">position_counter</span> <span class="o">=</span> <span class="mi">0</span>
     
     <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="n">site_column</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">column1</span><span class="p">[</span><span class="n">position_counter</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">column1</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span> <span class="o">!=</span> <span class="s1">&#39;nan&#39;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1&quot;</span><span class="p">,</span><span class="n">site</span><span class="p">,</span> <span class="n">column1</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span>
             <span class="n">merged_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column1</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span>
-        <span class="k">elif</span> <span class="n">column2</span><span class="p">[</span><span class="n">position_counter</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">column2</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span> <span class="o">!=</span> <span class="s1">&#39;nan&#39;</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">,</span><span class="n">site</span><span class="p">,</span> <span class="n">column2</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span>
             <span class="n">merged_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column2</span><span class="p">[</span><span class="n">position_counter</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">merged_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
         <span class="n">position_counter</span> <span class="o">+=</span> <span class="mi">1</span>
     
+    <span class="nb">print</span><span class="p">(</span><span class="n">position_counter</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">merged_list</span>
 
 
@@ -16482,10 +16486,14 @@ div#notebook {
 
 <span class="k">def</span> <span class="nf">preamble_to_merging</span><span class="p">(</span><span class="n">site_column</span><span class="p">,</span> <span class="n">site_length</span><span class="p">,</span> <span class="n">column1</span><span class="p">,</span> <span class="n">column2</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preamble</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">site_column</span><span class="p">)</span>
     <span class="c1">#creates lists for the two different columns</span>
     <span class="n">column1_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column1</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="n">column2_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column2</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-                            
+    
+    <span class="c1">#map(str, column1_list)</span>
+    <span class="c1">#map(str, column2_list)</span>
+    
     <span class="c1">#determine the length of each list... </span>
     <span class="n">column1_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">column1_list</span><span class="p">)</span>
     <span class="n">column2_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">column2_list</span><span class="p">)</span>
@@ -16524,7 +16532,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[74]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#for optional inputs, set equal to none</span>
@@ -16568,13 +16576,13 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[75]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;OldMediterranean.csv&#39;</span><span class="p">)</span>
 <span class="n">site_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Site&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
 
-<span class="n">latitude_list</span> <span class="o">=</span> <span class="n">extract_from_csv</span><span class="p">(</span><span class="s1">&#39;site_list&#39;</span><span class="p">,</span><span class="s1">&#39;Latitude1&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude1&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude2&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude2&#39;</span><span class="p">)</span>
+<span class="n">latitude_list</span> <span class="o">=</span> <span class="n">extract_from_csv</span><span class="p">(</span><span class="n">site_list</span><span class="p">,</span><span class="s1">&#39;Latitude1&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude1&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude2&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude2&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16595,6 +16603,7 @@ div#notebook {
 
 Preamble
 
+[&#39;Uluburun&#39;, &#39;Cape Gelidonya&#39;, &#39;Zambratija&#39;, &#39;Mazarron 1&#39;, &#39;Mazarron 2&#39;, &#39;Giglio A&#39;, &#39;Pabuc Burnu&#39;, &#39;Cala Sant Vincenc&#39;, &#39;Bon Porte 1\xa0&#39;, &#39;Jules Verne 7&#39;, &#39;Jules Verne 9&#39;, &#39;Cesar 1&#39;, &#39;Grand Ribaud F&#39;, &#39;Gela 1&#39;, &#39;Golo&#39;, &#39;Heracleion 17&#39;, &#39;Gela 2&#39;, &#39;Maagan Mikhael&#39;, &#39;Osiris boat-Heracleion 11&#39;, &#39;Binissafuller&#39;, &#39;Mazotos&#39;, &#39;Kyrenia&#39;, &#39;Eregli E&#39;, &#39;Marsala 1&#39;, &#39;Marsala 2&#39;, &#39;Tour Fondue&#39;, &#39;Tour dAgnello&#39;, &#39;Pisa Hellenistic Wreck&#39;, &#39;Chretienne C&#39;, &#39;Baie de Briande&#39;, &#39;Jarre 4&#39;, &#39;Roche Fouras&#39;, &#39;Caveaux I &#39;, &#39;Jeaune Garde B&#39;, &#39;Cavanella dAdige&#39;, &#39;Cavaliere&#39;, &#39;Illa de Conills/Cabrera VII&#39;, &#39;Colonia Sant Jordi&#39;, &#39;Palamós/Formigues 1&#39;, &#39;Cap de l’Esterel&#39;, &#39;Cap Gros &#39;, &#39;Cap Benat&#39;, &#39;Miladou&#39;, &#39;Pointe Pomegues &#39;, &#39;Madhia&#39;, &#39;Titan &#39;, &#39;Dramont A &#39;, &#39;Chrétienne A&#39;, &#39;Madrague de Giens &#39;, &#39;Dramont C &#39;, &#39;Arles-Rhone 2&#39;, &#39;Arles-Rhone 5&#39;, &#39;Plane I &#39;, &#39;SM 2 &#39;, &#39;Planier 3&#39;, &#39;Cala Cativa&#39;, &#39;Formigues 2&#39;, &#39;Aquilea&#39;, &#39;Cap Béar 3&#39;, &#39;Tradelière &#39;, &#39;Fos 1 &#39;, &#39;Sud Perduto 2&#39;, &#39;Arles-Rhône 6&#39;, &#39;Rabiou &#39;, &#39;Cap del Vol &#39;, &#39;Ladispoli&#39;, &#39;Grand Ribaud D&#39;, &#39;Padua&#39;, &#39;Comacchio&#39;, &#39;Pula 1&#39;, &#39;Pula 2&#39;, &#39;Sud Lavezzi 3&#39;, &#39;Pisa B&#39;, &#39;Ouest Giraglia 2&#39;, &#39;Perduto 1&#39;, &#39;Dramont I&#39;, &#39;Caska 1&#39;, &#39;Caska 2&#39;, &#39;Caska 3&#39;, &#39;Caska 4&#39;, &#39;Lipe/Ljubljanica&#39;, &#39;Jules Verne 5&#39;, &#39;Jules Verne 6&#39;, &#39;Conque des Salins&#39;, &#39;Pisa C&#39;, &#39;Pisa E&#39;, &#39;Giraglia 1&#39;, &#39;Sud Lavezzi 2&#39;, &#39;Nemi 1&#39;, &#39;Nemi 2&#39;, &#39;Kinneret&#39;, &#39;Caesarea&#39;, &#39;Stella 1&#39;, &#39;Ilot Barthelemy B&#39;, &#39;SM 24&#39;, &#39;Baie de l’Amitié/Battus &#39;, &#39;Nin 1&#39;, &#39;Sud Lavezzi 5&#39;, &#39;Calanque de l´Âne &#39;, &#39;Napoli A &#39;, &#39;Arles-Rhône 3&#39;, &#39;Diano Marina &#39;, &#39;Porto Cristo &#39;, &#39;Punta Nati&#39;, &#39;Olbia 1&#39;, &#39;Olbia 2&#39;, &#39;Bou Ferrer&#39;, &#39;Albufereta I&#39;, &#39;Alexandria Antirhodos Island&#39;, &#39;Pisa H &#39;, &#39;Pisa G&#39;, &#39;Herculaneum 1&#39;, &#39;Herculaneum 2&#39;, &#39;Mainz 6&#39;, &#39;Pisa F&#39;, &#39;Pisa A&#39;, &#39;Fiumicino 5&#39;, &#39;Cala en Busquets 1&#39;, &#39;Jules Verne 3&#39;, &#39;Jules Verne 4&#39;, &#39;Arles-Rhone 7&#39;, &#39;Arles-Rhone 8&#39;, &#39;Tiboulen de Maire &#39;, &#39;Saint Gervais 3 &#39;, &#39;Port-Vendres 3&#39;, &#39;Monfalcone&#39;, &#39;Napoli C&#39;, &#39;Grado &#39;, &#39;Anse des Laurons 2&#39;, &#39;Napoli B&#39;, &#39;Monaco&#39;, &#39;Bourse &#39;, &#39;Musee des Docks&#39;, &#39;Medes 6&#39;, &#39;Fiumicino 4\n&#39;, &#39;Isola Sacra 2&#39;, &#39;Anse des Laurons 1 &#39;, &#39;Jules Verne 8&#39;, &#39;Isola Sacra 1&#39;, &#39;Mainz 3&#39;, &#39;Pomègues &#39;, &#39;Anse des Laurons 3 &#39;, &#39;County Hall&#39;, &#39;Anse des Laurons 4 &#39;, &#39;Pointe de la Luque B&#39;, &#39;Yassiada 2&#39;, &#39;Mainz 2&#39;, &#39;Dramont F&#39;, &#39;Pakostane&#39;, &#39;Fiumicino 1&#39;, &#39;Fiumicino 3&#39;, &#39;Fiumicino 2&#39;, &#39;Dor D&#39;, &#39;Port Vendres 1&#39;, &#39;Mainz 1&#39;, &#39;Mainz 5&#39;, &#39;Mainz 4&#39;, &#39;Yenikapi 34&#39;, &#39;Yenikapi 35&#39;, &#39;Dramont E&#39;, &#39;Yenikapi 22 &#39;, &#39;Yenikapi 26 &#39;, &#39;Mandirac 1&#39;, &#39;Parco di Teodorico&#39;, &#39;Tantura A&#39;, &#39;Cervia&#39;, &#39;Pisa D&#39;, &#39;Dor 2001/1&#39;, &#39;Dor 2006&#39;, &#39;Port Berteau 2&#39;, &#39;Yassiada 1&#39;, &#39;Pantano Longarini&#39;, &#39;Yenikapi 11 &#39;, &#39;Tantura E&#39;, &#39;St. Gervais 2&#39;, &#39;Tantura F&#39;, &#39;Yenikapi 17&#39;, &#39;Yenikapi 3&#39;, &#39;Yenikapi 27 &#39;, &#39;Yenikapi 28&#39;, &#39;Yenikapi 12 &#39;, &#39;Yenikapi 20 &#39;, &#39;Yenikapi 13 &#39;, &#39;Yenikapi 19 &#39;, &#39;Yenikapi 10&#39;, &#39;Yenikapi 15&#39;, &#39;Yenikapi 16 &#39;, &#39;Yenikapi 29&#39;, &#39;Yenikapi 30 &#39;, &#39;Yenikapi 32&#39;, &#39;Yenikapi 23&#39;, &#39;Tantura B&#39;, &#39;Yenikapi 14 &#39;, &#39;Yenikapi 21 &#39;, &#39;Yenikapi 31&#39;, &#39;Yenikapi 2&#39;, &#39;Bozburun&#39;, &#39;Bataiguier&#39;, &#39;Agay A&#39;, &#39;Agay B&#39;, &#39;Esteou&#39;, &#39;Yenikapi 25&#39;, &#39;Yenikapi 24 &#39;, &#39;Yenikapi 36&#39;, &#39;Plaza Nueva boat&#39;, &#39;Yenikapi 1&#39;, &#39;Yenikapi 4&#39;, &#39;Yenikapi 5&#39;, &#39;Yenikapi 6&#39;, &#39;Yenikapi 7&#39;, &#39;Yenikapi 8&#39;, &#39;Yenikapi 9&#39;, &#39;Yenikapi 18&#39;, &#39;Serce Limani &#39;, &#39;Precenicco&#39;, &#39;Sisak&#39;, &#39;Lido de Venice&#39;, &#39;Pomposa&#39;, &#39;Corte Cavanella 1&#39;, &#39;Toulon 1&#39;, &#39;Toulon 2 Horeia&#39;, &#39;Olbia 3&#39;, &#39;Olbia 4&#39;, &#39;Olbia 5&#39;, &#39;Olbia 6&#39;, &#39;Olbia 7&#39;, &#39;Phanagoria &#39;, &#39;Grand Congloue 1&#39;, &#39;Grand Congloue 2&#39;, &#39;Corte Cavanella 2&#39;, &#39;Antibes&#39;, &#39;Nin 2&#39;, &#39;Nin 3&#39;, &#39;Mal di Ventre &#39;]
 Column1:  234
 [&#39; 36° 7\&#39;51.15&#34;N&#39;, &#39; 36°12\&#39;24.72&#34;N&#39;, &#39; 45°28\&#39;21.26&#34;N&#39;, &#39;37°33\&#39;33.7&#34;N\xa0&#39;, &#39;37°33\&#39;34.3&#34;N\xa0&#39;, &#39;42°22\&#39;05.9&#34;N &#39;, &#39;36.976556&#39;, &#39; 39°55\&#39;19.18&#34;N&#39;, &#39;43°10\&#39;03.2&#34;N &#39;, &#39;43°17\&#39;59.9&#34;N&#39;, &#39;43°17\&#39;59.0&#34;N &#39;, &#39;43°17\&#39;59.6&#34;N &#39;, &#39;37°02\&#39;28.3&#34;N &#39;, &#39;37°02\&#39;33.1&#34;N &#39;, &#39; 42°31\&#39;32.66&#34;N&#39;, &#39; 31°20\&#39;0.16&#34;N&#39;, &#39;37°02\&#39;25.3&#34;N &#39;, &#39;32°33\&#39;21.1&#34;N &#39;, &#39; 31°19\&#39;45.70&#34;N&#39;, &#39;39°49\&#39;25.4&#34;N\xa0&#39;, &#39; 34°47\&#39;18.00&#34;N&#39;, &#39;35°20\&#39;49.9&#34;N &#39;, &#39; 41°29\&#39;3.07&#34;N&#39;, &#39;37°52\&#39;16.0&#34;N &#39;, &#39;37°52\&#39;16.0&#34;N &#39;, &#39;43°01\&#39;31.8&#34;N &#39;, &#39; 43° 0\&#39;37.83&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 43°25\&#39;30.61&#34;N&#39;, &#39; 43° 9\&#39;53.55&#34;N&#39;, &#39; 43°11\&#39;45.62&#34;N&#39;, &#39; 43°11\&#39;44.52&#34;N&#39;, &#39; 43°15\&#39;49.17&#34;N&#39;, &#39; 43° 0\&#39;24.17&#34;N&#39;, &#39; 45° 7\&#39;35.14&#34;N&#39;, &#39; 43° 8\&#39;47.77&#34;N&#39;, &#39; 39°10\&#39;30.76&#34;N&#39;, &#39; 39°18\&#39;55.81&#34;N&#39;, &#39; 41°51\&#39;48.04&#34;N&#39;, &#39; 43° 1\&#39;54.44&#34;N&#39;, &#39;43°32\&#39;32.5&#34;N &#39;, &#39; 43° 4\&#39;4.34&#34;N&#39;, &#39;43°01\&#39;04.5&#34;N &#39;, &#39;43°16\&#39;18.5&#34;N &#39;, &#39;35°31\&#39;54.9&#34;N &#39;, &#39;43°02\&#39;59.8&#34;N &#39;, &#39;43°23\&#39;56.4&#34;N &#39;, &#39; 43°25\&#39;24.66&#34;N&#39;, &#39;43°02\&#39;29.1&#34;N &#39;, &#39;43°24\&#39;34.2&#34;N &#39;, &#39; 43°40\&#39;25.89&#34;N&#39;, &#39; 43°40\&#39;31.88&#34;N&#39;, &#39; 43°10\&#39;58.19&#34;N&#39;, &#39; 43°26\&#39;40.06&#34;N&#39;, nan, &#39; 42°20\&#39;53.85&#34;N&#39;, &#39; 41°51\&#39;34.20&#34;N&#39;, &#39; 45°45\&#39;55.28&#34;N&#39;, &#39; 42°30\&#39;54.52&#34;N&#39;, &#39; 43°31\&#39;16.93&#34;N&#39;, &#39;43°24\&#39;49.9&#34;N &#39;, &#39; 41°21\&#39;60.00&#34;N&#39;, &#39; 43°40\&#39;32.63&#34;N&#39;, &#39; 43°17\&#39;0.69&#34;N&#39;, &#39; 42°21\&#39;41.12&#34;N&#39;, &#39; 41°56\&#39;37.56&#34;N&#39;, &#39; 43° 1\&#39;17.17&#34;N&#39;, nan, &#39; 44°42\&#39;46.87&#34;N&#39;, nan, nan, &#39; 41°19\&#39;25.64&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 43° 1\&#39;16.18&#34;N&#39;, &#39; 41°22\&#39;11.18&#34;N&#39;, &#34;43º24&#39;36.0&#39;&#39; N&#34;, &#39; 44°32\&#39;53.45&#34;N&#39;, &#39; 44°32\&#39;56.06&#34;N&#39;, &#39; 44°32\&#39;56.06&#34;N&#39;, nan, &#39; 45°59\&#39;23.47&#34;N&#39;, &#39; 43°17\&#39;47.48&#34;N&#39;, &#39; 43°17\&#39;47.48&#34;N&#39;, &#39; 43°27\&#39;29.46&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#34;43º00&#39;53.4&#39;&#39; N&#34;, &#39; 41°19\&#39;21.17&#34;N&#39;, &#39; 41°43\&#39;10.20&#34;N&#39;, &#39; 41°43\&#39;8.36&#34;N&#39;, &#39; 32°43\&#39;9.37&#34;N&#39;, &#39; 32°30\&#39;25.06&#34;N&#39;, &#39; 45°47\&#39;29.41&#34;N&#39;, &#34;43º26&#39;6&#39;&#39; N&#34;, &#39; 43°26\&#39;32.74&#34;N&#39;, &#39; 43°16\&#39;26.67&#34;N&#39;, nan, &#39; 41°19\&#39;29.12&#34;N&#39;, &#39; 43°16\&#39;5.09&#34;N&#39;, &#39; 40°50\&#39;22.05&#34;N&#39;, &#39; 43°40\&#39;36.90&#34;N&#39;, &#39; 43°54\&#39;14.78&#34;N&#39;, &#39; 39°32\&#39;27.70&#34;N&#39;, &#39; 40° 3\&#39;44.84&#34;N&#39;, nan, nan, &#39; 38°29\&#39;40.70&#34;N&#39;, &#39; 38°21\&#39;20.92&#34;N&#39;, &#39; 31°12\&#39;16.28&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 40°48\&#39;18.35&#34;N&#39;, &#39; 40°48\&#39;18.35&#34;N&#39;, &#39; 49°59\&#39;50.17&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 41°47\&#39;12.48&#34;N&#39;, &#39; 39°59\&#39;58.16&#34;N&#39;, &#39; 43°17\&#39;47.48&#34;N&#39;, &#39; 43°17\&#39;47.48&#34;N&#39;, &#39; 43°40\&#39;37.30&#34;N&#39;, &#39; 43°40\&#39;37.40&#34;N&#39;, &#39; 43°13\&#39;14.27&#34;N&#39;, &#39;43°24\&#39;09.9&#34;N &#39;, &#39; 42°31\&#39;10.76&#34;N&#39;, &#39; 45°47\&#39;56.60&#34;N&#39;, &#39; 40°50\&#39;22.05&#34;N&#39;, &#39; 45°40\&#39;23.87&#34;N&#39;, &#39; 43°21\&#39;15.56&#34;N&#39;, &#39; 40°50\&#39;22.05&#34;N&#39;, &#39;43°43\&#39;49.6&#34;N &#39;, &#39;43°17\&#39;57.8&#34;N &#39;, &#39; 43°17\&#39;46.81&#34;N&#39;, &#39; 43° 2\&#39;22.35&#34;N&#39;, &#39; 41°47\&#39;12.48&#34;N&#39;, &#39; 41°45\&#39;25.20&#34;N&#39;, &#39; 43°21\&#39;16.10&#34;N&#39;, &#39; 43°17\&#39;47.48&#34;N&#39;, &#39; 41°45\&#39;25.20&#34;N&#39;, &#39; 50° 0\&#39;7.66&#34;N&#39;, &#39; 43°16\&#39;17.17&#34;N&#39;, &#39; 43°21\&#39;11.06&#34;N&#39;, &#34;51º 30&#39; N&#34;, &#39; 43°21\&#39;8.92&#34;N&#39;, &#39;43°16\&#39;14.8&#34;N &#39;, &#39;36°59\&#39;58.3&#34;N &#39;, &#39; 50° 0\&#39;8.14&#34;N&#39;, &#39;43°24\&#39;14.5&#34;N &#39;, &#39; 43°54\&#39;16.72&#34;N&#39;, &#39; 41°47\&#39;12.48&#34;N&#39;, &#39; 41°47\&#39;12.48&#34;N&#39;, &#39; 41°47\&#39;12.48&#34;N&#39;, &#39; 32°36\&#39;24.88&#34;N&#39;, &#39; 42°31\&#39;11.60&#34;N&#39;, &#39; 50° 0\&#39;5.51&#34;N&#39;, &#39; 50° 0\&#39;8.96&#34;N&#39;, &#39; 50° 0\&#39;7.40&#34;N&#39;, &#39;41°00\&#39;21.0&#34;N &#39;, &#39;41°00\&#39;19.1&#34;N &#39;, &#39;43°24\&#39;45&#34;N &#39;, &#39;41°00\&#39;20.2&#34;N &#39;, &#39;41°00\&#39;20.3&#34;N &#39;, nan, &#39; 44°25\&#39;34.28&#34;N&#39;, &#39; 32°36\&#39;31.63&#34;N&#39;, nan, &#39; 43°43\&#39;27.17&#34;N&#39;, &#39; 32°36\&#39;30.13&#34;N&#39;, &#39;\xa032°36′ 01″ N&#39;, &#39; 45°46\&#39;34.12&#34;N&#39;, &#39;36°59\&#39;58.3&#34;N &#39;, &#39; 36°42\&#39;19.43&#34;N&#39;, &#39;41°00\&#39;15.0&#34;N &#39;, &#39; 32°36\&#39;31&#34;N&#39;, &#39;43°25\&#39;11.9&#34;N&#39;, &#39; 32°36\&#39;30.58&#34;N&#39;, &#39;41°00\&#39;21.0&#34;N &#39;, &#39;41°00\&#39;19.2&#34;N &#39;, &#39;41°00\&#39;21.1&#34;N &#39;, &#39;41°00\&#39;20.9&#34;N &#39;, &#39;41°00\&#39;19.3&#34;N &#39;, &#39;41°00\&#39;21.7&#34;N &#39;, &#39;41°00\&#39;19.5&#34;N &#39;, &#39;41°00\&#39;21.7&#34;N &#39;, &#39;41°00\&#39;22.9&#34;N &#39;, &#39;41°00\&#39;20.5&#34;N &#39;, &#39;41°00\&#39;21.2&#34;N &#39;, &#39;41°00\&#39;20.4&#34;N &#39;, &#39;41°00\&#39;17.1&#34;N &#39;, &#39;41°00\&#39;21.5&#34;N &#39;, &#39;41°00\&#39;19.0&#34;N &#39;, &#39; 32°36\&#39;32.26&#34;N&#39;, &#39;41°00\&#39;17.1&#34;N &#39;, &#39;41°00\&#39;19.5&#34;N &#39;, &#39;41°00\&#39;19.0&#34;N &#39;, &#39;41°00\&#39;18.3&#34;N &#39;, &#39;36°43\&#39;19.8&#34;N &#39;, &#39;43°31\&#39;26.8&#34;N &#39;, &#39;43°24\&#39;58.1&#34;N&#39;, nan, nan, &#39;41°00\&#39;22.5&#34;N &#39;, &#39;41°00\&#39;19.4&#34;N &#39;, &#39;41°00\&#39;13.5&#34;N &#39;, &#39; 37°23\&#39;18.20&#34;N&#39;, &#39;41°00\&#39;18.5&#34;N &#39;, &#39;41°00\&#39;20.9&#34;N &#39;, &#39;41°00\&#39;20.9&#34;N &#39;, &#39;41°00\&#39;21.5&#34;N &#39;, &#39;41°00\&#39;21.9&#34;N &#39;, &#39;41°00\&#39;17.7&#34;N &#39;, &#39;41°00\&#39;21.4&#34;N &#39;, &#39;41°00\&#39;21.0&#34;N &#39;, &#39;36°34\&#39;55.3&#34;N &#39;, &#39; 45°47\&#39;9.90&#34;N&#39;, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, &#39; 43°10\&#39;36.77&#34;N&#39;, &#39; 43°10\&#39;36.77&#34;N&#39;, nan, nan, nan, nan, nan]
 
@@ -16604,10 +16613,245 @@ Column2:  234
 
 Merge
 
+1 Uluburun  36° 7&#39;51.15&#34;N
+1 Cape Gelidonya  36°12&#39;24.72&#34;N
+1 Zambratija  45°28&#39;21.26&#34;N
+1 Mazarron 1 37°33&#39;33.7&#34;N 
+1 Mazarron 2 37°33&#39;34.3&#34;N 
+1 Giglio A 42°22&#39;05.9&#34;N 
+1 Pabuc Burnu 36.976556
+1 Cala Sant Vincenc  39°55&#39;19.18&#34;N
+1 Bon Porte 1  43°10&#39;03.2&#34;N 
+1 Jules Verne 7 43°17&#39;59.9&#34;N
+1 Jules Verne 9 43°17&#39;59.0&#34;N 
+1 Cesar 1 43°17&#39;59.6&#34;N 
+1 Grand Ribaud F 37°02&#39;28.3&#34;N 
+1 Gela 1 37°02&#39;33.1&#34;N 
+1 Golo  42°31&#39;32.66&#34;N
+1 Heracleion 17  31°20&#39;0.16&#34;N
+1 Gela 2 37°02&#39;25.3&#34;N 
+1 Maagan Mikhael 32°33&#39;21.1&#34;N 
+1 Osiris boat-Heracleion 11  31°19&#39;45.70&#34;N
+1 Binissafuller 39°49&#39;25.4&#34;N 
+1 Mazotos  34°47&#39;18.00&#34;N
+1 Kyrenia 35°20&#39;49.9&#34;N 
+1 Eregli E  41°29&#39;3.07&#34;N
+1 Marsala 1 37°52&#39;16.0&#34;N 
+1 Marsala 2 37°52&#39;16.0&#34;N 
+1 Tour Fondue 43°01&#39;31.8&#34;N 
+1 Tour dAgnello  43° 0&#39;37.83&#34;N
+1 Pisa Hellenistic Wreck  43°43&#39;27.17&#34;N
+1 Chretienne C  43°25&#39;30.61&#34;N
+1 Baie de Briande  43° 9&#39;53.55&#34;N
+1 Jarre 4  43°11&#39;45.62&#34;N
+1 Roche Fouras  43°11&#39;44.52&#34;N
+1 Caveaux I   43°15&#39;49.17&#34;N
+1 Jeaune Garde B  43° 0&#39;24.17&#34;N
+1 Cavanella dAdige  45° 7&#39;35.14&#34;N
+1 Cavaliere  43° 8&#39;47.77&#34;N
+1 Illa de Conills/Cabrera VII  39°10&#39;30.76&#34;N
+1 Colonia Sant Jordi  39°18&#39;55.81&#34;N
+1 Palamós/Formigues 1  41°51&#39;48.04&#34;N
+1 Cap de l’Esterel  43° 1&#39;54.44&#34;N
+1 Cap Gros  43°32&#39;32.5&#34;N 
+1 Cap Benat  43° 4&#39;4.34&#34;N
+1 Miladou 43°01&#39;04.5&#34;N 
+1 Pointe Pomegues  43°16&#39;18.5&#34;N 
+1 Madhia 35°31&#39;54.9&#34;N 
+1 Titan  43°02&#39;59.8&#34;N 
+1 Dramont A  43°23&#39;56.4&#34;N 
+1 Chrétienne A  43°25&#39;24.66&#34;N
+1 Madrague de Giens  43°02&#39;29.1&#34;N 
+1 Dramont C  43°24&#39;34.2&#34;N 
+1 Arles-Rhone 2  43°40&#39;25.89&#34;N
+1 Arles-Rhone 5  43°40&#39;31.88&#34;N
+1 Plane I   43°10&#39;58.19&#34;N
+1 SM 2   43°26&#39;40.06&#34;N
+2 Planier 3  43.198699°
+1 Cala Cativa  42°20&#39;53.85&#34;N
+1 Formigues 2  41°51&#39;34.20&#34;N
+1 Aquilea  45°45&#39;55.28&#34;N
+1 Cap Béar 3  42°30&#39;54.52&#34;N
+1 Tradelière   43°31&#39;16.93&#34;N
+1 Fos 1  43°24&#39;49.9&#34;N 
+1 Sud Perduto 2  41°21&#39;60.00&#34;N
+1 Arles-Rhône 6  43°40&#39;32.63&#34;N
+1 Rabiou   43°17&#39;0.69&#34;N
+1 Cap del Vol   42°21&#39;41.12&#34;N
+1 Ladispoli  41°56&#39;37.56&#34;N
+1 Grand Ribaud D  43° 1&#39;17.17&#34;N
+2 Padua  45.410928°
+1 Comacchio  44°42&#39;46.87&#34;N
+2 Pula 1  44.866904°
+2 Pula 2  44.866904°
+1 Sud Lavezzi 3  41°19&#39;25.64&#34;N
+1 Pisa B  43°43&#39;27.17&#34;N
+1 Ouest Giraglia 2  43° 1&#39;16.18&#34;N
+1 Perduto 1  41°22&#39;11.18&#34;N
+1 Dramont I 43º24&#39;36.0&#39;&#39; N
+1 Caska 1  44°32&#39;53.45&#34;N
+1 Caska 2  44°32&#39;56.06&#34;N
+1 Caska 3  44°32&#39;56.06&#34;N
+2 Caska 4  44.547548°
+1 Lipe/Ljubljanica  45°59&#39;23.47&#34;N
+1 Jules Verne 5  43°17&#39;47.48&#34;N
+1 Jules Verne 6  43°17&#39;47.48&#34;N
+1 Conque des Salins  43°27&#39;29.46&#34;N
+1 Pisa C  43°43&#39;27.17&#34;N
+1 Pisa E  43°43&#39;27.17&#34;N
+1 Giraglia 1 43º00&#39;53.4&#39;&#39; N
+1 Sud Lavezzi 2  41°19&#39;21.17&#34;N
+1 Nemi 1  41°43&#39;10.20&#34;N
+1 Nemi 2  41°43&#39;8.36&#34;N
+1 Kinneret  32°43&#39;9.37&#34;N
+1 Caesarea  32°30&#39;25.06&#34;N
+1 Stella 1  45°47&#39;29.41&#34;N
+1 Ilot Barthelemy B 43º26&#39;6&#39;&#39; N
+1 SM 24  43°26&#39;32.74&#34;N
+1 Baie de l’Amitié/Battus   43°16&#39;26.67&#34;N
+2 Nin 1  44.230688°
+1 Sud Lavezzi 5  41°19&#39;29.12&#34;N
+1 Calanque de l´Âne   43°16&#39;5.09&#34;N
+1 Napoli A   40°50&#39;22.05&#34;N
+1 Arles-Rhône 3  43°40&#39;36.90&#34;N
+1 Diano Marina   43°54&#39;14.78&#34;N
+1 Porto Cristo   39°32&#39;27.70&#34;N
+1 Punta Nati  40° 3&#39;44.84&#34;N
+2 Olbia 1  40.913372°
+2 Olbia 2  40.912928°
+1 Bou Ferrer  38°29&#39;40.70&#34;N
+1 Albufereta I  38°21&#39;20.92&#34;N
+1 Alexandria Antirhodos Island  31°12&#39;16.28&#34;N
+1 Pisa H   43°43&#39;27.17&#34;N
+1 Pisa G  43°43&#39;27.17&#34;N
+1 Herculaneum 1  40°48&#39;18.35&#34;N
+1 Herculaneum 2  40°48&#39;18.35&#34;N
+1 Mainz 6  49°59&#39;50.17&#34;N
+1 Pisa F  43°43&#39;27.17&#34;N
+1 Pisa A  43°43&#39;27.17&#34;N
+1 Fiumicino 5  41°47&#39;12.48&#34;N
+1 Cala en Busquets 1  39°59&#39;58.16&#34;N
+1 Jules Verne 3  43°17&#39;47.48&#34;N
+1 Jules Verne 4  43°17&#39;47.48&#34;N
+1 Arles-Rhone 7  43°40&#39;37.30&#34;N
+1 Arles-Rhone 8  43°40&#39;37.40&#34;N
+1 Tiboulen de Maire   43°13&#39;14.27&#34;N
+1 Saint Gervais 3  43°24&#39;09.9&#34;N 
+1 Port-Vendres 3  42°31&#39;10.76&#34;N
+1 Monfalcone  45°47&#39;56.60&#34;N
+1 Napoli C  40°50&#39;22.05&#34;N
+1 Grado   45°40&#39;23.87&#34;N
+1 Anse des Laurons 2  43°21&#39;15.56&#34;N
+1 Napoli B  40°50&#39;22.05&#34;N
+1 Monaco 43°43&#39;49.6&#34;N 
+1 Bourse  43°17&#39;57.8&#34;N 
+1 Musee des Docks  43°17&#39;46.81&#34;N
+1 Medes 6  43° 2&#39;22.35&#34;N
+1 Fiumicino 4
+  41°47&#39;12.48&#34;N
+1 Isola Sacra 2  41°45&#39;25.20&#34;N
+1 Anse des Laurons 1   43°21&#39;16.10&#34;N
+1 Jules Verne 8  43°17&#39;47.48&#34;N
+1 Isola Sacra 1  41°45&#39;25.20&#34;N
+1 Mainz 3  50° 0&#39;7.66&#34;N
+1 Pomègues   43°16&#39;17.17&#34;N
+1 Anse des Laurons 3   43°21&#39;11.06&#34;N
+1 County Hall 51º 30&#39; N
+1 Anse des Laurons 4   43°21&#39;8.92&#34;N
+1 Pointe de la Luque B 43°16&#39;14.8&#34;N 
+1 Yassiada 2 36°59&#39;58.3&#34;N 
+1 Mainz 2  50° 0&#39;8.14&#34;N
+1 Dramont F 43°24&#39;14.5&#34;N 
+1 Pakostane  43°54&#39;16.72&#34;N
+1 Fiumicino 1  41°47&#39;12.48&#34;N
+1 Fiumicino 3  41°47&#39;12.48&#34;N
+1 Fiumicino 2  41°47&#39;12.48&#34;N
+1 Dor D  32°36&#39;24.88&#34;N
+1 Port Vendres 1  42°31&#39;11.60&#34;N
+1 Mainz 1  50° 0&#39;5.51&#34;N
+1 Mainz 5  50° 0&#39;8.96&#34;N
+1 Mainz 4  50° 0&#39;7.40&#34;N
+1 Yenikapi 34 41°00&#39;21.0&#34;N 
+1 Yenikapi 35 41°00&#39;19.1&#34;N 
+1 Dramont E 43°24&#39;45&#34;N 
+1 Yenikapi 22  41°00&#39;20.2&#34;N 
+1 Yenikapi 26  41°00&#39;20.3&#34;N 
+2 Mandirac 1  43.128970°
+1 Parco di Teodorico  44°25&#39;34.28&#34;N
+1 Tantura A  32°36&#39;31.63&#34;N
+2 Cervia  44.263229°
+1 Pisa D  43°43&#39;27.17&#34;N
+1 Dor 2001/1  32°36&#39;30.13&#34;N
+1 Dor 2006  32°36′ 01″ N
+1 Port Berteau 2  45°46&#39;34.12&#34;N
+1 Yassiada 1 36°59&#39;58.3&#34;N 
+1 Pantano Longarini  36°42&#39;19.43&#34;N
+1 Yenikapi 11  41°00&#39;15.0&#34;N 
+1 Tantura E  32°36&#39;31&#34;N
+1 St. Gervais 2 43°25&#39;11.9&#34;N
+1 Tantura F  32°36&#39;30.58&#34;N
+1 Yenikapi 17 41°00&#39;21.0&#34;N 
+1 Yenikapi 3 41°00&#39;19.2&#34;N 
+1 Yenikapi 27  41°00&#39;21.1&#34;N 
+1 Yenikapi 28 41°00&#39;20.9&#34;N 
+1 Yenikapi 12  41°00&#39;19.3&#34;N 
+1 Yenikapi 20  41°00&#39;21.7&#34;N 
+1 Yenikapi 13  41°00&#39;19.5&#34;N 
+1 Yenikapi 19  41°00&#39;21.7&#34;N 
+1 Yenikapi 10 41°00&#39;22.9&#34;N 
+1 Yenikapi 15 41°00&#39;20.5&#34;N 
+1 Yenikapi 16  41°00&#39;21.2&#34;N 
+1 Yenikapi 29 41°00&#39;20.4&#34;N 
+1 Yenikapi 30  41°00&#39;17.1&#34;N 
+1 Yenikapi 32 41°00&#39;21.5&#34;N 
+1 Yenikapi 23 41°00&#39;19.0&#34;N 
+1 Tantura B  32°36&#39;32.26&#34;N
+1 Yenikapi 14  41°00&#39;17.1&#34;N 
+1 Yenikapi 21  41°00&#39;19.5&#34;N 
+1 Yenikapi 31 41°00&#39;19.0&#34;N 
+1 Yenikapi 2 41°00&#39;18.3&#34;N 
+1 Bozburun 36°43&#39;19.8&#34;N 
+1 Bataiguier 43°31&#39;26.8&#34;N 
+1 Agay A 43°24&#39;58.1&#34;N
+2 Agay B  43.412880°
+2 Esteou  43.184609°
+1 Yenikapi 25 41°00&#39;22.5&#34;N 
+1 Yenikapi 24  41°00&#39;19.4&#34;N 
+1 Yenikapi 36 41°00&#39;13.5&#34;N 
+1 Plaza Nueva boat  37°23&#39;18.20&#34;N
+1 Yenikapi 1 41°00&#39;18.5&#34;N 
+1 Yenikapi 4 41°00&#39;20.9&#34;N 
+1 Yenikapi 5 41°00&#39;20.9&#34;N 
+1 Yenikapi 6 41°00&#39;21.5&#34;N 
+1 Yenikapi 7 41°00&#39;21.9&#34;N 
+1 Yenikapi 8 41°00&#39;17.7&#34;N 
+1 Yenikapi 9 41°00&#39;21.4&#34;N 
+1 Yenikapi 18 41°00&#39;21.0&#34;N 
+1 Serce Limani  36°34&#39;55.3&#34;N 
+1 Precenicco  45°47&#39;9.90&#34;N
+2 Sisak  45.488587°
+2 Lido de Venice  45.342062°
+2 Pomposa 44.846606°
+2 Corte Cavanella 1  45.037559°
+2 Toulon 1  43.120240°
+2 Toulon 2 Horeia  43.120276°
+2 Olbia 3  40.912354°
+2 Olbia 4  40.911741°
+2 Olbia 5  40.913515°
+2 Olbia 6  40.912823°
+2 Olbia 7  40.912158°
+2 Phanagoria   45.278852°
+1 Grand Congloue 1  43°10&#39;36.77&#34;N
+1 Grand Congloue 2  43°10&#39;36.77&#34;N
+2 Corte Cavanella 2  45.037559°
+2 Antibes  43.583415°
+2 Nin 2  44.230687°
+234
 Extract: Entering second if statement
 
 Preamble
 
+[&#39;Uluburun&#39;, &#39;Cape Gelidonya&#39;, &#39;Zambratija&#39;, &#39;Mazarron 1&#39;, &#39;Mazarron 2&#39;, &#39;Giglio A&#39;, &#39;Pabuc Burnu&#39;, &#39;Cala Sant Vincenc&#39;, &#39;Bon Porte 1\xa0&#39;, &#39;Jules Verne 7&#39;, &#39;Jules Verne 9&#39;, &#39;Cesar 1&#39;, &#39;Grand Ribaud F&#39;, &#39;Gela 1&#39;, &#39;Golo&#39;, &#39;Heracleion 17&#39;, &#39;Gela 2&#39;, &#39;Maagan Mikhael&#39;, &#39;Osiris boat-Heracleion 11&#39;, &#39;Binissafuller&#39;, &#39;Mazotos&#39;, &#39;Kyrenia&#39;, &#39;Eregli E&#39;, &#39;Marsala 1&#39;, &#39;Marsala 2&#39;, &#39;Tour Fondue&#39;, &#39;Tour dAgnello&#39;, &#39;Pisa Hellenistic Wreck&#39;, &#39;Chretienne C&#39;, &#39;Baie de Briande&#39;, &#39;Jarre 4&#39;, &#39;Roche Fouras&#39;, &#39;Caveaux I &#39;, &#39;Jeaune Garde B&#39;, &#39;Cavanella dAdige&#39;, &#39;Cavaliere&#39;, &#39;Illa de Conills/Cabrera VII&#39;, &#39;Colonia Sant Jordi&#39;, &#39;Palamós/Formigues 1&#39;, &#39;Cap de l’Esterel&#39;, &#39;Cap Gros &#39;, &#39;Cap Benat&#39;, &#39;Miladou&#39;, &#39;Pointe Pomegues &#39;, &#39;Madhia&#39;, &#39;Titan &#39;, &#39;Dramont A &#39;, &#39;Chrétienne A&#39;, &#39;Madrague de Giens &#39;, &#39;Dramont C &#39;, &#39;Arles-Rhone 2&#39;, &#39;Arles-Rhone 5&#39;, &#39;Plane I &#39;, &#39;SM 2 &#39;, &#39;Planier 3&#39;, &#39;Cala Cativa&#39;, &#39;Formigues 2&#39;, &#39;Aquilea&#39;, &#39;Cap Béar 3&#39;, &#39;Tradelière &#39;, &#39;Fos 1 &#39;, &#39;Sud Perduto 2&#39;, &#39;Arles-Rhône 6&#39;, &#39;Rabiou &#39;, &#39;Cap del Vol &#39;, &#39;Ladispoli&#39;, &#39;Grand Ribaud D&#39;, &#39;Padua&#39;, &#39;Comacchio&#39;, &#39;Pula 1&#39;, &#39;Pula 2&#39;, &#39;Sud Lavezzi 3&#39;, &#39;Pisa B&#39;, &#39;Ouest Giraglia 2&#39;, &#39;Perduto 1&#39;, &#39;Dramont I&#39;, &#39;Caska 1&#39;, &#39;Caska 2&#39;, &#39;Caska 3&#39;, &#39;Caska 4&#39;, &#39;Lipe/Ljubljanica&#39;, &#39;Jules Verne 5&#39;, &#39;Jules Verne 6&#39;, &#39;Conque des Salins&#39;, &#39;Pisa C&#39;, &#39;Pisa E&#39;, &#39;Giraglia 1&#39;, &#39;Sud Lavezzi 2&#39;, &#39;Nemi 1&#39;, &#39;Nemi 2&#39;, &#39;Kinneret&#39;, &#39;Caesarea&#39;, &#39;Stella 1&#39;, &#39;Ilot Barthelemy B&#39;, &#39;SM 24&#39;, &#39;Baie de l’Amitié/Battus &#39;, &#39;Nin 1&#39;, &#39;Sud Lavezzi 5&#39;, &#39;Calanque de l´Âne &#39;, &#39;Napoli A &#39;, &#39;Arles-Rhône 3&#39;, &#39;Diano Marina &#39;, &#39;Porto Cristo &#39;, &#39;Punta Nati&#39;, &#39;Olbia 1&#39;, &#39;Olbia 2&#39;, &#39;Bou Ferrer&#39;, &#39;Albufereta I&#39;, &#39;Alexandria Antirhodos Island&#39;, &#39;Pisa H &#39;, &#39;Pisa G&#39;, &#39;Herculaneum 1&#39;, &#39;Herculaneum 2&#39;, &#39;Mainz 6&#39;, &#39;Pisa F&#39;, &#39;Pisa A&#39;, &#39;Fiumicino 5&#39;, &#39;Cala en Busquets 1&#39;, &#39;Jules Verne 3&#39;, &#39;Jules Verne 4&#39;, &#39;Arles-Rhone 7&#39;, &#39;Arles-Rhone 8&#39;, &#39;Tiboulen de Maire &#39;, &#39;Saint Gervais 3 &#39;, &#39;Port-Vendres 3&#39;, &#39;Monfalcone&#39;, &#39;Napoli C&#39;, &#39;Grado &#39;, &#39;Anse des Laurons 2&#39;, &#39;Napoli B&#39;, &#39;Monaco&#39;, &#39;Bourse &#39;, &#39;Musee des Docks&#39;, &#39;Medes 6&#39;, &#39;Fiumicino 4\n&#39;, &#39;Isola Sacra 2&#39;, &#39;Anse des Laurons 1 &#39;, &#39;Jules Verne 8&#39;, &#39;Isola Sacra 1&#39;, &#39;Mainz 3&#39;, &#39;Pomègues &#39;, &#39;Anse des Laurons 3 &#39;, &#39;County Hall&#39;, &#39;Anse des Laurons 4 &#39;, &#39;Pointe de la Luque B&#39;, &#39;Yassiada 2&#39;, &#39;Mainz 2&#39;, &#39;Dramont F&#39;, &#39;Pakostane&#39;, &#39;Fiumicino 1&#39;, &#39;Fiumicino 3&#39;, &#39;Fiumicino 2&#39;, &#39;Dor D&#39;, &#39;Port Vendres 1&#39;, &#39;Mainz 1&#39;, &#39;Mainz 5&#39;, &#39;Mainz 4&#39;, &#39;Yenikapi 34&#39;, &#39;Yenikapi 35&#39;, &#39;Dramont E&#39;, &#39;Yenikapi 22 &#39;, &#39;Yenikapi 26 &#39;, &#39;Mandirac 1&#39;, &#39;Parco di Teodorico&#39;, &#39;Tantura A&#39;, &#39;Cervia&#39;, &#39;Pisa D&#39;, &#39;Dor 2001/1&#39;, &#39;Dor 2006&#39;, &#39;Port Berteau 2&#39;, &#39;Yassiada 1&#39;, &#39;Pantano Longarini&#39;, &#39;Yenikapi 11 &#39;, &#39;Tantura E&#39;, &#39;St. Gervais 2&#39;, &#39;Tantura F&#39;, &#39;Yenikapi 17&#39;, &#39;Yenikapi 3&#39;, &#39;Yenikapi 27 &#39;, &#39;Yenikapi 28&#39;, &#39;Yenikapi 12 &#39;, &#39;Yenikapi 20 &#39;, &#39;Yenikapi 13 &#39;, &#39;Yenikapi 19 &#39;, &#39;Yenikapi 10&#39;, &#39;Yenikapi 15&#39;, &#39;Yenikapi 16 &#39;, &#39;Yenikapi 29&#39;, &#39;Yenikapi 30 &#39;, &#39;Yenikapi 32&#39;, &#39;Yenikapi 23&#39;, &#39;Tantura B&#39;, &#39;Yenikapi 14 &#39;, &#39;Yenikapi 21 &#39;, &#39;Yenikapi 31&#39;, &#39;Yenikapi 2&#39;, &#39;Bozburun&#39;, &#39;Bataiguier&#39;, &#39;Agay A&#39;, &#39;Agay B&#39;, &#39;Esteou&#39;, &#39;Yenikapi 25&#39;, &#39;Yenikapi 24 &#39;, &#39;Yenikapi 36&#39;, &#39;Plaza Nueva boat&#39;, &#39;Yenikapi 1&#39;, &#39;Yenikapi 4&#39;, &#39;Yenikapi 5&#39;, &#39;Yenikapi 6&#39;, &#39;Yenikapi 7&#39;, &#39;Yenikapi 8&#39;, &#39;Yenikapi 9&#39;, &#39;Yenikapi 18&#39;, &#39;Serce Limani &#39;, &#39;Precenicco&#39;, &#39;Sisak&#39;, &#39;Lido de Venice&#39;, &#39;Pomposa&#39;, &#39;Corte Cavanella 1&#39;, &#39;Toulon 1&#39;, &#39;Toulon 2 Horeia&#39;, &#39;Olbia 3&#39;, &#39;Olbia 4&#39;, &#39;Olbia 5&#39;, &#39;Olbia 6&#39;, &#39;Olbia 7&#39;, &#39;Phanagoria &#39;, &#39;Grand Congloue 1&#39;, &#39;Grand Congloue 2&#39;, &#39;Corte Cavanella 2&#39;, &#39;Antibes&#39;, &#39;Nin 2&#39;, &#39;Nin 3&#39;, &#39;Mal di Ventre &#39;]
 Column1:  234
 [&#39; 29°40\&#39;58.54&#34;E&#39;, &#39; 30°24\&#39;15.38&#34;E&#39;, &#39; 13°30\&#39;36.35&#34;E&#39;, &#39;1°16\&#39;09.6&#34;W&#39;, &#39;1°16\&#39;04.7&#34;W&#39;, &#39;10°52\&#39;37.5&#34;E&#39;, &#39;27.562942&#39;, &#39;  3° 3\&#39;27.56&#34;E&#39;, &#39;6°38\&#39;49.2&#34;E&#39;, &#39;5°21\&#39;25.1&#34;E&#39;, &#39;5°21\&#39;26.4&#34;E&#39;, &#39;5°21\&#39;28.1&#34;E&#39;, &#39;14°16\&#39;46.0&#34;E&#39;, &#39;14°16\&#39;47.8&#34;E&#39;, &#39;  9°31\&#39;44.59&#34;E&#39;, &#39; 30° 7\&#39;42.05&#34;E&#39;, &#39;14°15\&#39;24.5&#34;E&#39;, &#39;34°54\&#39;14.5&#34;E&#39;, &#39; 30° 7\&#39;54.50&#34;E&#39;, &#39;4°13\&#39;06.7&#34;E&#39;, &#39; 33°31\&#39;33.79&#34;E&#39;, &#39;33°19\&#39;14.4&#34;E&#39;, &#39; 31° 9\&#39;43.64&#34;E&#39;, &#39;12°26\&#39;05.5&#34;E&#39;, &#39;12°26\&#39;05.5&#34;E&#39;, &#39;6°09\&#39;21.3&#34;E&#39;, &#39;  9°25\&#39;53.48&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39;  6°53\&#39;19.13&#34;E&#39;, &#39;  6°37\&#39;54.65&#34;E&#39;, &#39;  5°21\&#39;41.74&#34;E&#39;, &#39;  6°41\&#39;16.70&#34;E&#39;, &#39;  5°17\&#39;6.37&#34;E&#39;, &#39;  6°12\&#39;11.92&#34;E&#39;, &#39; 12°14\&#39;14.78&#34;E&#39;, &#39;  6°25\&#39;27.64&#34;E&#39;, &#39;  2°57\&#39;43.63&#34;E&#39;, &#39;  3° 0\&#39;3.76&#34;E&#39;, &#39;  3°11\&#39;19.60&#34;E&#39;, &#39;  6°10\&#39;41.60&#34;E&#39;, &#39;7°07\&#39;26.2&#34;E&#39;, &#39;  6°21\&#39;8.43&#34;E&#39;, &#39;6°22\&#39;37.4&#34;E&#39;, &#39;5°18\&#39;07.1&#34;E&#39;, &#39;11°07\&#39;28.1&#34;E&#39;, &#39;6°31\&#39;31.3&#34;E&#39;, &#39;6°50\&#39;37.4&#34;E&#39;, &#39;  6°53\&#39;39.82&#34;E&#39;, &#39;6°05\&#39;37.4&#34;E&#39;, &#39;6°50\&#39;53.0&#34;E&#39;, &#39;  4°36\&#39;47.27&#34;E&#39;, &#39;  4°36\&#39;56.22&#34;E&#39;, &#39;  5°22\&#39;54.60&#34;E&#39;, &#39;  4°23\&#39;6.38&#34;E&#39;, nan, &#39;  3°12\&#39;46.15&#34;E&#39;, &#39;  3°11\&#39;57.62&#34;E&#39;, &#39; 13°20\&#39;11.45&#34;E&#39;, &#39;  3° 8\&#39;52.97&#34;E&#39;, &#39;  7° 4\&#39;27.95&#34;E&#39;, &#39;4°56\&#39;53.5&#34;E&#39;, &#39;  9°18\&#39;21.93&#34;E&#39;, &#39;  4°36\&#39;57.96&#34;E&#39;, &#39;  6°40\&#39;45.24&#34;E&#39;, &#39;  3°10\&#39;31.41&#34;E&#39;, &#39; 12° 4\&#39;33.98&#34;E&#39;, &#39;  6° 8\&#39;50.16&#34;E&#39;, nan, &#39; 12° 9\&#39;27.81&#34;E&#39;, nan, nan, &#39;  9°16\&#39;33.10&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39;  9°23\&#39;48.41&#34;E&#39;, &#39;  9°18\&#39;14.82&#34;E&#39;, &#39;06º50.36.0 E&#39;, &#39; 14°55\&#39;23.39&#34;E&#39;, &#39; 14°55\&#39;12.22&#34;E&#39;, &#39; 14°55\&#39;12.22&#34;E&#39;, nan, &#39; 14°26\&#39;49.43&#34;E&#39;, &#39;  5°22\&#39;7.28&#34;E&#39;, &#39;  5°22\&#39;7.28&#34;E&#39;, &#39;  3°40\&#39;33.80&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#34;9º23&#39;42.2&#39;&#39;E&#34;, &#39;  9°16\&#39;44.75&#34;E&#39;, &#39; 12°42\&#39;0.36&#34;E&#39;, &#39;12°41\&#39;59.65&#34;E&#39;, &#39; 35°34\&#39;20.50&#34;E&#39;, &#39; 34°53\&#39;33.46&#34;E&#39;, &#39; 13° 4\&#39;55.09&#34;E&#39;, &#34;06°54&#39;8&#39;&#39; E&#34;, &#39;  4°23\&#39;53.80&#34;E&#39;, &#39;  3°28\&#39;12.53&#34;E&#39;, nan, &#39;  9°15\&#39;40.44&#34;E&#39;, &#39; 5°18\&#39;2.38&#34;E&#39;, &#39; 14°15\&#39;12.35&#34;E&#39;, &#39;  4°37\&#39;3.82&#34;E&#39;, &#39;  8° 5\&#39;20.43&#34;E&#39;, &#39;  3°20\&#39;13.40&#34;E&#39;, &#39;  3°48\&#39;52.09&#34;E&#39;, nan, nan, &#39;  0°12\&#39;54.94&#34;O&#39;, &#39;  0°26\&#39;14.68&#34;O&#39;, &#39; 29°53\&#39;44.62&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 14°20\&#39;48.07&#34;E&#39;, &#39; 14°20\&#39;48.07&#34;E&#39;, &#39;  8°16\&#39;39.69&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 12°15\&#39;24.75&#34;E&#39;, &#39;  3°49\&#39;41.51&#34;E&#39;, &#39;  5°22\&#39;7.28&#34;E&#39;, &#39;  5°22\&#39;7.28&#34;E&#39;, &#39;  4°37\&#39;4.57&#34;E&#39;, &#39;  4°37\&#39;4.99&#34;E&#39;, &#39;  5°19\&#39;24.95&#34;E&#39;, &#39;4°55\&#39;15.7&#34;E&#39;, &#39;  3° 6\&#39;53.31&#34;E&#39;, &#39; 13°32\&#39;41.71&#34;E&#39;, &#39; 14°15\&#39;12.35&#34;E&#39;, &#39; 13°23\&#39;4.03&#34;E&#39;, &#39;  5° 1\&#39;27.10&#34;E&#39;, &#39; 14°15\&#39;12.35&#34;E&#39;, &#39;7°25\&#39;33.3&#34;E&#39;, &#39;5°21\&#39;14.1&#34;E&#39;, &#39;  5°22\&#39;4.61&#34;E&#39;, &#39;  6°17\&#39;0.51&#34;E&#39;, &#39; 12°15\&#39;24.75&#34;E&#39;, &#39; 12°16\&#39;54.09&#34;E&#39;, &#39;  5° 1\&#39;30.07&#34;E&#39;, &#39;  5°22\&#39;7.28&#34;E&#39;, &#39; 12°16\&#39;54.09&#34;E&#39;, &#39;  8°16\&#39;28.63&#34;E&#39;, &#39;  5°18\&#39;6.32&#34;E&#39;, &#39;  5° 1\&#39;27.45&#34;E&#39;, &#34; 0º 10&#39; W&#34;, &#39;  5° 1\&#39;26.36&#34;E&#39;, &#39;5°18\&#39;20.1&#34;E&#39;, &#39;27°14\&#39;14.7&#34;E&#39;, &#39;  8°16\&#39;28.17&#34;E&#39;, &#39;6°50\&#39;56.0&#34;E&#39;, &#39; 15°30\&#39;16.96&#34;E&#39;, &#39; 12°15\&#39;24.75&#34;E&#39;, &#39; 12°15\&#39;24.75&#34;E&#39;, &#39; 12°15\&#39;24.75&#34;E&#39;, &#39; 34°54\&#39;51.73&#34;E&#39;, &#39;  3° 6\&#39;45.43&#34;E&#39;, &#39;  8°16\&#39;30.65&#34;E&#39;, &#39;  8°16\&#39;28.12&#34;E&#39;, &#39;  8°16\&#39;28.72&#34;E&#39;, &#39;28°57\&#39;01.1&#34;E&#39;, &#39;28°57\&#39;01.5&#34;E&#39;, &#39;6°50\&#39;11&#34;E&#39;, &#39;28°57\&#39;03.8&#34;E&#39;, &#39;28°57\&#39;02.2&#34;E&#39;, nan, &#39; 12°12\&#39;29.49&#34;E&#39;, &#39; 34°54\&#39;56.19&#34;E&#39;, nan, &#39; 10°23\&#39;15.47&#34;E&#39;, &#39; 34°54\&#39;55.14&#34;E&#39;, &#39;\xa034°54′ 55″ E&#39;, &#39;  0°37\&#39;33.37&#34;W&#39;, &#39;27°14\&#39;14.7&#34;E&#39;, &#39; 15° 0\&#39;3.74&#34;E&#39;, &#39;28°56\&#39;47.7&#34;E&#39;, &#39; 34°54\&#39;56&#34;E&#39;, &#39;4°54\&#39;42.0&#34;E&#39;, &#39; 34°54\&#39;53.99&#34;E&#39;, &#39;28°57\&#39;11.0&#34;E&#39;, &#39;28°57\&#39;11.3&#34;E&#39;, &#39;28°57\&#39;05.6&#34;E&#39;, &#39;28°57\&#39;04.8&#34;E&#39;, &#39;28°57\&#39;03.5&#34;E&#39;, &#39;28°57\&#39;11.3&#34;E&#39;, &#39;28°57\&#39;01.1&#34;E&#39;, &#39;28°57\&#39;10.8&#34;E&#39;, &#39;28°57\&#39;09.2&#34;E&#39;, &#39;28°57\&#39;10.7&#34;E&#39;, &#39;28°57\&#39;09.5&#34;E&#39;, &#39;28°57\&#39;10.9&#34;E&#39;, &#39;28°57\&#39;00.5&#34;E&#39;, &#39;28°57\&#39;03.8&#34;E&#39;, &#39;28°57\&#39;00.8&#34;E&#39;, &#39; 34°54\&#39;56.23&#34;E&#39;, &#39;28°56\&#39;59.7&#34;E&#39;, &#39;28°57\&#39;02.0&#34;E&#39;, &#39;28°56\&#39;58.3&#34;E&#39;, &#39;28°57\&#39;08.1&#34;E&#39;, &#39;28°06\&#39;10.7&#34;E&#39;, &#39;7°02\&#39;18.3&#34;E&#39;, &#39;6°51\&#39;40.0&#34;E&#39;, nan, nan, &#39;28°57\&#39;09.2&#34;E&#39;, &#39;28°57\&#39;08.3&#34;E&#39;, &#39;28°56\&#39;59.8&#34;E&#39;, &#39;  5°59\&#39;43.94&#34;O&#39;, &#39;28°57\&#39;08.0&#34;E&#39;, &#39;28°57\&#39;09.2&#34;E&#39;, &#39;28°57\&#39;09.7&#34;E&#39;, &#39;28°57\&#39;08.4&#34;E&#39;, &#39;28°57\&#39;09.1&#34;E&#39;, &#39;28°57\&#39;05.6&#34;E&#39;, &#39;28°57\&#39;06.5&#34;E&#39;, &#39;28°57\&#39;11.6&#34;E&#39;, &#39;28°04\&#39;15.2&#34;E&#39;, &#39; 13° 4\&#39;45.70&#34;E&#39;, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, &#39;  5°24\&#39;0.37&#34;E&#39;, &#39;  5°24\&#39;0.37&#34;E&#39;, nan, nan, nan, nan, nan]
 
@@ -16617,32 +16861,241 @@ Column2:  234
 
 Merge
 
+1 Uluburun  29°40&#39;58.54&#34;E
+1 Cape Gelidonya  30°24&#39;15.38&#34;E
+1 Zambratija  13°30&#39;36.35&#34;E
+1 Mazarron 1 1°16&#39;09.6&#34;W
+1 Mazarron 2 1°16&#39;04.7&#34;W
+1 Giglio A 10°52&#39;37.5&#34;E
+1 Pabuc Burnu 27.562942
+1 Cala Sant Vincenc   3° 3&#39;27.56&#34;E
+1 Bon Porte 1  6°38&#39;49.2&#34;E
+1 Jules Verne 7 5°21&#39;25.1&#34;E
+1 Jules Verne 9 5°21&#39;26.4&#34;E
+1 Cesar 1 5°21&#39;28.1&#34;E
+1 Grand Ribaud F 14°16&#39;46.0&#34;E
+1 Gela 1 14°16&#39;47.8&#34;E
+1 Golo   9°31&#39;44.59&#34;E
+1 Heracleion 17  30° 7&#39;42.05&#34;E
+1 Gela 2 14°15&#39;24.5&#34;E
+1 Maagan Mikhael 34°54&#39;14.5&#34;E
+1 Osiris boat-Heracleion 11  30° 7&#39;54.50&#34;E
+1 Binissafuller 4°13&#39;06.7&#34;E
+1 Mazotos  33°31&#39;33.79&#34;E
+1 Kyrenia 33°19&#39;14.4&#34;E
+1 Eregli E  31° 9&#39;43.64&#34;E
+1 Marsala 1 12°26&#39;05.5&#34;E
+1 Marsala 2 12°26&#39;05.5&#34;E
+1 Tour Fondue 6°09&#39;21.3&#34;E
+1 Tour dAgnello   9°25&#39;53.48&#34;E
+1 Pisa Hellenistic Wreck  10°23&#39;15.47&#34;E
+1 Chretienne C   6°53&#39;19.13&#34;E
+1 Baie de Briande   6°37&#39;54.65&#34;E
+1 Jarre 4   5°21&#39;41.74&#34;E
+1 Roche Fouras   6°41&#39;16.70&#34;E
+1 Caveaux I    5°17&#39;6.37&#34;E
+1 Jeaune Garde B   6°12&#39;11.92&#34;E
+1 Cavanella dAdige  12°14&#39;14.78&#34;E
+1 Cavaliere   6°25&#39;27.64&#34;E
+1 Illa de Conills/Cabrera VII   2°57&#39;43.63&#34;E
+1 Colonia Sant Jordi   3° 0&#39;3.76&#34;E
+1 Palamós/Formigues 1   3°11&#39;19.60&#34;E
+1 Cap de l’Esterel   6°10&#39;41.60&#34;E
+1 Cap Gros  7°07&#39;26.2&#34;E
+1 Cap Benat   6°21&#39;8.43&#34;E
+1 Miladou 6°22&#39;37.4&#34;E
+1 Pointe Pomegues  5°18&#39;07.1&#34;E
+1 Madhia 11°07&#39;28.1&#34;E
+1 Titan  6°31&#39;31.3&#34;E
+1 Dramont A  6°50&#39;37.4&#34;E
+1 Chrétienne A   6°53&#39;39.82&#34;E
+1 Madrague de Giens  6°05&#39;37.4&#34;E
+1 Dramont C  6°50&#39;53.0&#34;E
+1 Arles-Rhone 2   4°36&#39;47.27&#34;E
+1 Arles-Rhone 5   4°36&#39;56.22&#34;E
+1 Plane I    5°22&#39;54.60&#34;E
+1 SM 2    4°23&#39;6.38&#34;E
+2 Planier 3   5.228740°
+1 Cala Cativa   3°12&#39;46.15&#34;E
+1 Formigues 2   3°11&#39;57.62&#34;E
+1 Aquilea  13°20&#39;11.45&#34;E
+1 Cap Béar 3   3° 8&#39;52.97&#34;E
+1 Tradelière    7° 4&#39;27.95&#34;E
+1 Fos 1  4°56&#39;53.5&#34;E
+1 Sud Perduto 2   9°18&#39;21.93&#34;E
+1 Arles-Rhône 6   4°36&#39;57.96&#34;E
+1 Rabiou    6°40&#39;45.24&#34;E
+1 Cap del Vol    3°10&#39;31.41&#34;E
+1 Ladispoli  12° 4&#39;33.98&#34;E
+1 Grand Ribaud D   6° 8&#39;50.16&#34;E
+2 Padua  11.877503°
+1 Comacchio  12° 9&#39;27.81&#34;E
+2 Pula 1  13.845123°
+2 Pula 2  13.845123°
+1 Sud Lavezzi 3   9°16&#39;33.10&#34;E
+1 Pisa B  10°23&#39;15.47&#34;E
+1 Ouest Giraglia 2   9°23&#39;48.41&#34;E
+1 Perduto 1   9°18&#39;14.82&#34;E
+1 Dramont I 06º50.36.0 E
+1 Caska 1  14°55&#39;23.39&#34;E
+1 Caska 2  14°55&#39;12.22&#34;E
+1 Caska 3  14°55&#39;12.22&#34;E
+2 Caska 4  14.919873°
+1 Lipe/Ljubljanica  14°26&#39;49.43&#34;E
+1 Jules Verne 5   5°22&#39;7.28&#34;E
+1 Jules Verne 6   5°22&#39;7.28&#34;E
+1 Conque des Salins   3°40&#39;33.80&#34;E
+1 Pisa C  10°23&#39;15.47&#34;E
+1 Pisa E  10°23&#39;15.47&#34;E
+1 Giraglia 1 9º23&#39;42.2&#39;&#39;E
+1 Sud Lavezzi 2   9°16&#39;44.75&#34;E
+1 Nemi 1  12°42&#39;0.36&#34;E
+1 Nemi 2 12°41&#39;59.65&#34;E
+1 Kinneret  35°34&#39;20.50&#34;E
+1 Caesarea  34°53&#39;33.46&#34;E
+1 Stella 1  13° 4&#39;55.09&#34;E
+1 Ilot Barthelemy B 06°54&#39;8&#39;&#39; E
+1 SM 24   4°23&#39;53.80&#34;E
+1 Baie de l’Amitié/Battus    3°28&#39;12.53&#34;E
+2 Nin 1  15.155692°
+1 Sud Lavezzi 5   9°15&#39;40.44&#34;E
+1 Calanque de l´Âne   5°18&#39;2.38&#34;E
+1 Napoli A   14°15&#39;12.35&#34;E
+1 Arles-Rhône 3   4°37&#39;3.82&#34;E
+1 Diano Marina    8° 5&#39;20.43&#34;E
+1 Porto Cristo    3°20&#39;13.40&#34;E
+1 Punta Nati   3°48&#39;52.09&#34;E
+2 Olbia 1   9.507514°
+2 Olbia 2   9.507566°
+1 Bou Ferrer   0°12&#39;54.94&#34;O
+1 Albufereta I   0°26&#39;14.68&#34;O
+1 Alexandria Antirhodos Island  29°53&#39;44.62&#34;E
+1 Pisa H   10°23&#39;15.47&#34;E
+1 Pisa G  10°23&#39;15.47&#34;E
+1 Herculaneum 1  14°20&#39;48.07&#34;E
+1 Herculaneum 2  14°20&#39;48.07&#34;E
+1 Mainz 6   8°16&#39;39.69&#34;E
+1 Pisa F  10°23&#39;15.47&#34;E
+1 Pisa A  10°23&#39;15.47&#34;E
+1 Fiumicino 5  12°15&#39;24.75&#34;E
+1 Cala en Busquets 1   3°49&#39;41.51&#34;E
+1 Jules Verne 3   5°22&#39;7.28&#34;E
+1 Jules Verne 4   5°22&#39;7.28&#34;E
+1 Arles-Rhone 7   4°37&#39;4.57&#34;E
+1 Arles-Rhone 8   4°37&#39;4.99&#34;E
+1 Tiboulen de Maire    5°19&#39;24.95&#34;E
+1 Saint Gervais 3  4°55&#39;15.7&#34;E
+1 Port-Vendres 3   3° 6&#39;53.31&#34;E
+1 Monfalcone  13°32&#39;41.71&#34;E
+1 Napoli C  14°15&#39;12.35&#34;E
+1 Grado   13°23&#39;4.03&#34;E
+1 Anse des Laurons 2   5° 1&#39;27.10&#34;E
+1 Napoli B  14°15&#39;12.35&#34;E
+1 Monaco 7°25&#39;33.3&#34;E
+1 Bourse  5°21&#39;14.1&#34;E
+1 Musee des Docks   5°22&#39;4.61&#34;E
+1 Medes 6   6°17&#39;0.51&#34;E
+1 Fiumicino 4
+  12°15&#39;24.75&#34;E
+1 Isola Sacra 2  12°16&#39;54.09&#34;E
+1 Anse des Laurons 1    5° 1&#39;30.07&#34;E
+1 Jules Verne 8   5°22&#39;7.28&#34;E
+1 Isola Sacra 1  12°16&#39;54.09&#34;E
+1 Mainz 3   8°16&#39;28.63&#34;E
+1 Pomègues    5°18&#39;6.32&#34;E
+1 Anse des Laurons 3    5° 1&#39;27.45&#34;E
+1 County Hall  0º 10&#39; W
+1 Anse des Laurons 4    5° 1&#39;26.36&#34;E
+1 Pointe de la Luque B 5°18&#39;20.1&#34;E
+1 Yassiada 2 27°14&#39;14.7&#34;E
+1 Mainz 2   8°16&#39;28.17&#34;E
+1 Dramont F 6°50&#39;56.0&#34;E
+1 Pakostane  15°30&#39;16.96&#34;E
+1 Fiumicino 1  12°15&#39;24.75&#34;E
+1 Fiumicino 3  12°15&#39;24.75&#34;E
+1 Fiumicino 2  12°15&#39;24.75&#34;E
+1 Dor D  34°54&#39;51.73&#34;E
+1 Port Vendres 1   3° 6&#39;45.43&#34;E
+1 Mainz 1   8°16&#39;30.65&#34;E
+1 Mainz 5   8°16&#39;28.12&#34;E
+1 Mainz 4   8°16&#39;28.72&#34;E
+1 Yenikapi 34 28°57&#39;01.1&#34;E
+1 Yenikapi 35 28°57&#39;01.5&#34;E
+1 Dramont E 6°50&#39;11&#34;E
+1 Yenikapi 22  28°57&#39;03.8&#34;E
+1 Yenikapi 26  28°57&#39;02.2&#34;E
+2 Mandirac 1   3.019653°
+1 Parco di Teodorico  12°12&#39;29.49&#34;E
+1 Tantura A  34°54&#39;56.19&#34;E
+2 Cervia  12.357070°
+1 Pisa D  10°23&#39;15.47&#34;E
+1 Dor 2001/1  34°54&#39;55.14&#34;E
+1 Dor 2006  34°54′ 55″ E
+1 Port Berteau 2   0°37&#39;33.37&#34;W
+1 Yassiada 1 27°14&#39;14.7&#34;E
+1 Pantano Longarini  15° 0&#39;3.74&#34;E
+1 Yenikapi 11  28°56&#39;47.7&#34;E
+1 Tantura E  34°54&#39;56&#34;E
+1 St. Gervais 2 4°54&#39;42.0&#34;E
+1 Tantura F  34°54&#39;53.99&#34;E
+1 Yenikapi 17 28°57&#39;11.0&#34;E
+1 Yenikapi 3 28°57&#39;11.3&#34;E
+1 Yenikapi 27  28°57&#39;05.6&#34;E
+1 Yenikapi 28 28°57&#39;04.8&#34;E
+1 Yenikapi 12  28°57&#39;03.5&#34;E
+1 Yenikapi 20  28°57&#39;11.3&#34;E
+1 Yenikapi 13  28°57&#39;01.1&#34;E
+1 Yenikapi 19  28°57&#39;10.8&#34;E
+1 Yenikapi 10 28°57&#39;09.2&#34;E
+1 Yenikapi 15 28°57&#39;10.7&#34;E
+1 Yenikapi 16  28°57&#39;09.5&#34;E
+1 Yenikapi 29 28°57&#39;10.9&#34;E
+1 Yenikapi 30  28°57&#39;00.5&#34;E
+1 Yenikapi 32 28°57&#39;03.8&#34;E
+1 Yenikapi 23 28°57&#39;00.8&#34;E
+1 Tantura B  34°54&#39;56.23&#34;E
+1 Yenikapi 14  28°56&#39;59.7&#34;E
+1 Yenikapi 21  28°57&#39;02.0&#34;E
+1 Yenikapi 31 28°56&#39;58.3&#34;E
+1 Yenikapi 2 28°57&#39;08.1&#34;E
+1 Bozburun 28°06&#39;10.7&#34;E
+1 Bataiguier 7°02&#39;18.3&#34;E
+1 Agay A 6°51&#39;40.0&#34;E
+2 Agay B   6.859982°
+2 Esteou   5.389459°
+1 Yenikapi 25 28°57&#39;09.2&#34;E
+1 Yenikapi 24  28°57&#39;08.3&#34;E
+1 Yenikapi 36 28°56&#39;59.8&#34;E
+1 Plaza Nueva boat   5°59&#39;43.94&#34;O
+1 Yenikapi 1 28°57&#39;08.0&#34;E
+1 Yenikapi 4 28°57&#39;09.2&#34;E
+1 Yenikapi 5 28°57&#39;09.7&#34;E
+1 Yenikapi 6 28°57&#39;08.4&#34;E
+1 Yenikapi 7 28°57&#39;09.1&#34;E
+1 Yenikapi 8 28°57&#39;05.6&#34;E
+1 Yenikapi 9 28°57&#39;06.5&#34;E
+1 Yenikapi 18 28°57&#39;11.6&#34;E
+1 Serce Limani  28°04&#39;15.2&#34;E
+1 Precenicco  13° 4&#39;45.70&#34;E
+2 Sisak  16.369855°
+2 Lido de Venice  12.329905°
+2 Pomposa  12.179127°
+2 Corte Cavanella 1  12.174104°
+2 Toulon 1   5.937979°
+2 Toulon 2 Horeia   5.937531°
+2 Olbia 3   9.507531°
+2 Olbia 4   9.507514°
+2 Olbia 5   9.509241°
+2 Olbia 6   9.509172°
+2 Olbia 7   9.509154°
+2 Phanagoria  36.956561°
+1 Grand Congloue 1   5°24&#39;0.37&#34;E
+1 Grand Congloue 2   5°24&#39;0.37&#34;E
+2 Corte Cavanella 2  12.174104°
+2 Antibes   7.126182°
+2 Nin 2  15.155384°
+234
 </pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-27-d16fd8f94370&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> site_list <span class="ansi-blue-fg">=</span> df<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;Site&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>tolist<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      3</span> 
-<span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>latitude_list <span class="ansi-blue-fg">=</span> extract_from_csv<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;site_list&#39;</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">&#39;Latitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude1&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Latitude2&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;Longitude2&#39;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-26-8af84babf797&gt;</span> in <span class="ansi-cyan-fg">extract_from_csv</span><span class="ansi-blue-fg">(site_column, latitude_column1, longitude_column1, latitude_column2, longitude_column2)</span>
-<span class="ansi-green-intense-fg ansi-bold">     27</span> 
-<span class="ansi-green-intense-fg ansi-bold">     28</span>     <span class="ansi-green-fg">for</span> site <span class="ansi-green-fg">in</span> site_list<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 29</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">if</span> latitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">and</span> longitude_list<span class="ansi-blue-fg">[</span>position_counter<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     30</span>             position_of_valid_coordinates<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>position_counter<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     31</span>         position_counter <span class="ansi-blue-fg">+=</span> <span class="ansi-cyan-fg">1</span>
-
-<span class="ansi-red-fg">IndexError</span>: list index out of range</pre>
 </div>
 </div>
 
