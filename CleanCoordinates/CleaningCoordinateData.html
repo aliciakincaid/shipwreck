@@ -16404,7 +16404,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[61]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -16440,7 +16440,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[62]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Merging columns in the event there is more than one latitude of longitude column</span>
@@ -16517,7 +16517,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[63]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;OldMediterranean.csv&#39;</span><span class="p">)</span>
@@ -16541,7 +16541,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#checks if one or more of the coordinates is nan</span>
@@ -16558,7 +16558,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[70]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#probably excessive, but we will be bouncing between lists</span>
@@ -16628,28 +16628,49 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[66]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lat_to_convert</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">long_to_convert</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">lat_counter</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">long_counter</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">latitude</span> <span class="ow">in</span> <span class="n">latitude_list</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">latitude</span> <span class="ow">or</span> <span class="s2">&quot;S&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="n">lat_to_convert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span>
-        <span class="n">lat_counter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">decimal_coordinate_needs_to_be_converted</span><span class="p">(</span><span class="n">coordinate_list</span><span class="p">,</span> <span class="n">key_value1</span><span class="p">,</span> <span class="n">key_value2</span><span class="p">):</span>
+    <span class="c1">#holds the coordinates we need to convert from degree to decimal</span>
+    <span class="n">coordinate_to_convert</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1">#holds the position of what needs to be replaced</span>
+    <span class="n">position_to_convert</span> <span class="o">=</span> <span class="p">[]</span>
     
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">longitude</span> <span class="ow">in</span> <span class="n">longitude_list</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;E&quot;</span> <span class="ow">in</span> <span class="n">longitude</span> <span class="ow">or</span> <span class="s2">&quot;W&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="n">long_to_convert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span>
-        <span class="n">long_counter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#the position being updated</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key_value1</span> <span class="ow">in</span> <span class="n">coordinate</span> <span class="ow">or</span> <span class="n">key_value2</span> <span class="ow">in</span> <span class="n">coordinate</span><span class="p">:</span>
+            <span class="n">coordinate_to_convert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+            <span class="n">position_to_convert</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+    <span class="k">return</span> <span class="n">coordinate_to_convert</span><span class="p">,</span> <span class="n">position_to_convert</span>
+
+<span class="k">def</span> <span class="nf">converter</span><span class="p">(</span><span class="n">coordinate</span><span class="p">):</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^0-9.-]+&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">input</span>
+
+<span class="k">def</span> <span class="nf">finalize_converted_coordinates</span><span class="p">(</span><span class="n">coordinate_list</span><span class="p">,</span> <span class="n">key_value1</span><span class="p">,</span> <span class="n">key_value2</span><span class="p">):</span>
+    <span class="n">converted_list</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">coordinate</span> <span class="ow">in</span> <span class="n">coordinate_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key_value1</span> <span class="ow">in</span> <span class="n">coordinate</span><span class="p">:</span>
+            <span class="n">converted_value</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+            <span class="n">converted_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">converted_value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key_value2</span> <span class="ow">in</span> <span class="n">coordinate</span><span class="p">:</span>
+            <span class="n">converted_value</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+            <span class="n">converted_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">converted_value</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">converted_value</span>
 </pre></div>
 
     </div>
@@ -16659,7 +16680,23 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[67]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lat_to_convert</span><span class="p">,</span> <span class="n">lat_counter</span> <span class="o">=</span>  <span class="n">decimal_coordinate_needs_to_be_converted</span><span class="p">(</span><span class="n">latitude_list</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
+<span class="n">long_to_convert</span><span class="p">,</span> <span class="n">long_counter</span> <span class="o">=</span>  <span class="n">decimal_coordinate_needs_to_be_converted</span><span class="p">(</span><span class="n">longitude_list</span><span class="p">,</span> <span class="s2">&quot;E&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">)</span>
+
+<span class="n">converted_lat</span> <span class="o">=</span> <span class="n">finalize_converted_coordinates</span><span class="p">(</span><span class="n">coordinate_list</span><span class="p">,</span> <span class="n">key_value1</span><span class="p">,</span> <span class="n">key_value2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">lat_to_convert</span><span class="p">)</span>
@@ -16706,40 +16743,11 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[69]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">converted_lat</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">converted_long</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">def</span> <span class="nf">converter</span><span class="p">(</span><span class="n">coordinate</span><span class="p">):</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^0-9.-]+&quot;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="k">pass</span>
-    <span class="nb">input</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mi">60</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">3600</span><span class="p">)</span>
-    <span class="k">return</span> <span class="nb">input</span>
-
-<span class="k">for</span> <span class="n">latitude</span> <span class="ow">in</span> <span class="n">lat_to_convert</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;N&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">latitude</span><span class="p">)</span>
-        <span class="n">converted_lat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;S&quot;</span> <span class="ow">in</span> <span class="n">latitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">latitude</span><span class="p">)</span>
-        <span class="n">converted_lat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">converted_lat</span><span class="p">)</span>
-
-<span class="k">for</span> <span class="n">longitude</span> <span class="ow">in</span> <span class="n">long_to_convert</span><span class="p">:</span>
-    <span class="k">if</span> <span class="s2">&quot;E&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">longitude</span><span class="p">)</span>
-        <span class="n">converted_long</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;W&quot;</span> <span class="ow">in</span> <span class="n">longitude</span><span class="p">:</span>
-        <span class="nb">input</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">converter</span><span class="p">(</span><span class="n">coordinate</span> <span class="o">=</span> <span class="n">longitude</span><span class="p">)</span>
-        <span class="n">converted_long</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">converted_long</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16759,14 +16767,14 @@ div#notebook {
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-69-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-8-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">     15</span> <span class="ansi-green-fg">for</span> latitude <span class="ansi-green-fg">in</span> lat_to_convert<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">     16</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#34;N&#34;</span> <span class="ansi-green-fg">in</span> latitude<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">---&gt; 17</span><span class="ansi-red-fg">         </span>input <span class="ansi-blue-fg">=</span> converter<span class="ansi-blue-fg">(</span>coordinate <span class="ansi-blue-fg">=</span> latitude<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     18</span>         converted_lat<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>input<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     19</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#34;S&#34;</span> <span class="ansi-green-fg">in</span> latitude<span class="ansi-blue-fg">:</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-69-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">converter</span><span class="ansi-blue-fg">(coordinate)</span>
+<span class="ansi-green-fg">&lt;ipython-input-8-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">converter</span><span class="ansi-blue-fg">(coordinate)</span>
 <span class="ansi-green-intense-fg ansi-bold">     10</span>         <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">     11</span>             <span class="ansi-green-fg">pass</span>
 <span class="ansi-green-fg">---&gt; 12</span><span class="ansi-red-fg">     </span>input <span class="ansi-blue-fg">=</span> temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">60</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">3600</span><span class="ansi-blue-fg">)</span>
