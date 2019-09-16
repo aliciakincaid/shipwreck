@@ -16558,7 +16558,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#probably excessive, but we will be bouncing between lists</span>
@@ -16628,7 +16628,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Creates list of coordinates that need to be converted to decimal format</span>
@@ -16692,7 +16692,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">lat_to_convert</span><span class="p">,</span> <span class="n">lat_counter</span> <span class="o">=</span>  <span class="n">decimal_coordinate_needs_to_be_converted</span><span class="p">(</span><span class="n">latitude_list</span><span class="p">,</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
@@ -16863,20 +16863,20 @@ div#notebook {
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
 <span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-26-6700f3608e5f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">&lt;ipython-input-8-6700f3608e5f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
 <span class="ansi-green-intense-fg ansi-bold">      2</span> long_to_convert<span class="ansi-blue-fg">,</span> long_counter <span class="ansi-blue-fg">=</span>  decimal_coordinate_needs_to_be_converted<span class="ansi-blue-fg">(</span>longitude_list<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;E&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;W&#34;</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      3</span> 
 <span class="ansi-green-fg">----&gt; 4</span><span class="ansi-red-fg"> </span>converted_lat <span class="ansi-blue-fg">=</span> finalize_converted_coordinates<span class="ansi-blue-fg">(</span>lat_to_convert<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;N&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;S&#34;</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">      5</span> converted_long <span class="ansi-blue-fg">=</span> finalize_converted_coordinates<span class="ansi-blue-fg">(</span>long_to_convert<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;E&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;W&#34;</span><span class="ansi-blue-fg">)</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-25-6ea83b634866&gt;</span> in <span class="ansi-cyan-fg">finalize_converted_coordinates</span><span class="ansi-blue-fg">(coordinate_list, key_value1, key_value2)</span>
+<span class="ansi-green-fg">&lt;ipython-input-7-6ea83b634866&gt;</span> in <span class="ansi-cyan-fg">finalize_converted_coordinates</span><span class="ansi-blue-fg">(coordinate_list, key_value1, key_value2)</span>
 <span class="ansi-green-intense-fg ansi-bold">     44</span>         print<span class="ansi-blue-fg">(</span>coordinate<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     45</span>         <span class="ansi-green-fg">if</span> key_value1 <span class="ansi-green-fg">in</span> coordinate<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-fg">---&gt; 46</span><span class="ansi-red-fg">             </span>converted_value <span class="ansi-blue-fg">=</span> converter<span class="ansi-blue-fg">(</span>coordinate<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     47</span>             converted_list<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>converted_value<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">     48</span>         <span class="ansi-green-fg">if</span> key_value2 <span class="ansi-green-fg">in</span> coordinate<span class="ansi-blue-fg">:</span>
 
-<span class="ansi-green-fg">&lt;ipython-input-25-6ea83b634866&gt;</span> in <span class="ansi-cyan-fg">converter</span><span class="ansi-blue-fg">(coordinate)</span>
+<span class="ansi-green-fg">&lt;ipython-input-7-6ea83b634866&gt;</span> in <span class="ansi-cyan-fg">converter</span><span class="ansi-blue-fg">(coordinate)</span>
 <span class="ansi-green-intense-fg ansi-bold">     34</span> 
 <span class="ansi-green-intense-fg ansi-bold">     35</span>     <span class="ansi-red-fg">#performs conversion calculations</span>
 <span class="ansi-green-fg">---&gt; 36</span><span class="ansi-red-fg">     </span>input <span class="ansi-blue-fg">=</span> temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">60</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">3600</span><span class="ansi-blue-fg">)</span>
@@ -16893,7 +16893,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">converted_lat</span><span class="p">)</span>
@@ -16913,10 +16913,15 @@ div#notebook {
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[36.130875]
-[29.682927777777778]
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-9-b303c24f3fab&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>converted_lat<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>converted_long<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">NameError</span>: name &#39;converted_lat&#39; is not defined</pre>
 </div>
 </div>
 
@@ -16935,11 +16940,40 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">converted_lat</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">converted_long</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now that we habve the converted coordinate points it is time to use them to replace the main list...</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">latCounter</span><span class="p">:</span>
+    <span class="n">latList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLat</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">longCounter</span><span class="p">:</span>
+    <span class="n">longList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLong</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 
     </div>
@@ -16958,54 +16992,18 @@ div#notebook {
 <div class="output_subarea output_text output_error">
 <pre>
 <span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-8-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span> <span class="ansi-green-fg">for</span> latitude <span class="ansi-green-fg">in</span> lat_to_convert<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     16</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#34;N&#34;</span> <span class="ansi-green-fg">in</span> latitude<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 17</span><span class="ansi-red-fg">         </span>input <span class="ansi-blue-fg">=</span> converter<span class="ansi-blue-fg">(</span>coordinate <span class="ansi-blue-fg">=</span> latitude<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     18</span>         converted_lat<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>input<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     19</span>     <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">&#34;S&#34;</span> <span class="ansi-green-fg">in</span> latitude<span class="ansi-blue-fg">:</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-11-42f1c8317927&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> counter <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">0</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> position <span class="ansi-green-fg">in</span> latCounter<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span>     latList<span class="ansi-blue-fg">[</span>position<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> str<span class="ansi-blue-fg">(</span>convertedLat<span class="ansi-blue-fg">[</span>counter<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span>     counter <span class="ansi-blue-fg">+=</span> <span class="ansi-cyan-fg">1</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> 
 
-<span class="ansi-green-fg">&lt;ipython-input-8-2ed378bfe6a8&gt;</span> in <span class="ansi-cyan-fg">converter</span><span class="ansi-blue-fg">(coordinate)</span>
-<span class="ansi-green-intense-fg ansi-bold">     10</span>         <span class="ansi-green-fg">except</span> ValueError<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     11</span>             <span class="ansi-green-fg">pass</span>
-<span class="ansi-green-fg">---&gt; 12</span><span class="ansi-red-fg">     </span>input <span class="ansi-blue-fg">=</span> temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">60</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">(</span>temp<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">/</span><span class="ansi-cyan-fg">3600</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     13</span>     <span class="ansi-green-fg">return</span> input
-<span class="ansi-green-intense-fg ansi-bold">     14</span> 
-
-<span class="ansi-red-fg">IndexError</span>: list index out of range</pre>
+<span class="ansi-red-fg">NameError</span>: name &#39;latCounter&#39; is not defined</pre>
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now that we habve the converted coordinate points it is time to use them to replace the main list...</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">latCounter</span><span class="p">:</span>
-    <span class="n">latList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLat</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">position</span> <span class="ow">in</span> <span class="n">longCounter</span><span class="p">:</span>
-    <span class="n">longList</span><span class="p">[</span><span class="n">position</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">convertedLong</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -17019,7 +17017,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cleanLatList</span> <span class="o">=</span> <span class="p">[]</span>
@@ -17040,6 +17038,33 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-12-3644a8f51e2e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> cleanSiteList <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> 
+<span class="ansi-green-fg">----&gt; 5</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">for</span> latitude <span class="ansi-green-fg">in</span> latList<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">      6</span>     cleanLatList<span class="ansi-blue-fg">.</span>append<span class="ansi-blue-fg">(</span>re<span class="ansi-blue-fg">.</span>sub<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">r&#34;[^0-9.-]+&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39; &#39;</span><span class="ansi-blue-fg">,</span> latitude<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      7</span> 
+
+<span class="ansi-red-fg">NameError</span>: name &#39;latList&#39; is not defined</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -17051,7 +17076,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">cleanLongList</span><span class="p">[</span><span class="mi">176</span><span class="p">])</span>
@@ -17069,6 +17094,33 @@ div#notebook {
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">IndexError</span>                                Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-13-211611f6ca86&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>print<span class="ansi-blue-fg">(</span>cleanLongList<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">176</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      2</span> print<span class="ansi-blue-fg">(</span>cleanLongList<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">379</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      3</span> 
+<span class="ansi-green-intense-fg ansi-bold">      4</span> print<span class="ansi-blue-fg">(</span>cleanLatList<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">176</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> print<span class="ansi-blue-fg">(</span>cleanLatList<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">379</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-red-fg">IndexError</span>: list index out of range</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
@@ -17079,7 +17131,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">cleanLongList</span><span class="p">:</span>
@@ -17109,7 +17161,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
@@ -17131,12 +17183,83 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;EarlyModernPostClean.csv&#39;</span><span class="p">)</span>
 
 <span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[16]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Site</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
     </div>
